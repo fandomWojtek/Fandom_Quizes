@@ -62,6 +62,7 @@ dependencies {
 
     implementation(platform(Deps.firebaseBoM))
     implementation(Deps.firebaseMessaging)
+    implementation("com.google.firebase:firebase-firestore")
 
     implementation(Deps.androidxCore)
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
