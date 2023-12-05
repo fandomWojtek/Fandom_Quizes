@@ -2,10 +2,12 @@ package com.fandom.fandom.quiz.leaderboard
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.fandom.fandom.quiz.R
 import com.fandom.fandom.quiz.databinding.ItemUserBinding
 import com.fandom.fandom.quiz.remoteDb.UserEntity
 
@@ -37,11 +39,18 @@ internal class UsersListViewHolder(
 
     fun bind(user: UserEntity) {
         binding.userName.text = user.userName
-        user.userPhoto.isNotEmpty().let {
-            Glide.with(binding.avatar.context)
-                .load(it)
-                .circleCrop()
-                .into(binding.avatar)
+        val avatars = listOf(getDrawable(R.drawable.avatar01), getDrawable(R.drawable.avatar02), getDrawable(R.drawable.avatar03), getDrawable(R.drawable.avatar04))
+        if (user.userPhoto.isEmpty()) {
+            binding.avatar.setImageDrawable(avatars.random())
+        } else {
+            user.userPhoto.isNotEmpty().let {
+                Glide.with(binding.avatar.context)
+                    .load(it)
+                    .circleCrop()
+                    .into(binding.avatar)
+            }
         }
     }
+
+    private fun getDrawable(name: Int) = ContextCompat.getDrawable(binding.avatar.context, name)
 }
