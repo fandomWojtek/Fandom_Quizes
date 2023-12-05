@@ -24,4 +24,8 @@ class UsersDb(private val firestore: FirebaseFirestore) {
     suspend fun getUserActiveInLastNMinutes(numberOfMinutes: Int = 5) = getAllUsers().filter {
         it.lastActive >= System.currentTimeMillis() - numberOfMinutes * TIME_OF_MINUTE
     }
+
+    suspend fun updateCurrentTimeStampForUser(id:String) {
+        firestore.collection(USERS_COLLECTION).document(id).update(LAST_ACTIVE, System.currentTimeMillis()).await()
+    }
 }
