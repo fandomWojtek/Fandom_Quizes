@@ -52,6 +52,10 @@ android {
             keyPassword = "android"
         }
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -78,7 +82,10 @@ dependencies {
     implementation(KmmDependecies.Android.ktorOkHttp)
     implementation(KmmDependecies.kotlinSerializer)
 
-    
+    //navigation
+    implementation(Deps.navigationFragment)
+    implementation(Deps.navigationUI)
+
     testImplementation("junit:junit:4.13.2")
 
 }

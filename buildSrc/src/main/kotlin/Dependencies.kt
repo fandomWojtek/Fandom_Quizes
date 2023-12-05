@@ -39,7 +39,7 @@ object Versions {
     const val androidxLocalBroadcastManager = "1.1.0"
     const val androidxWork = "2.8.1"
     const val exifinterface = "1.3.6"
-    const val navigation = "2.6.0"
+    const val navigation = "2.7.5"
     const val security = "1.1.0-alpha06"
     const val lifecycleProcess = "2.6.1"
     const val composeUi = "1.5.1"

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/quiz_nav"
+    app:startDestination="@id/landingScreenNav">
+
+    <!--    GLOBAL ACTIONS-->
+    <action
+        android:id="@+id/action_logout"
+        app:destination="@id/landingScreenNav" />
+
+    <fragment
+        android:id="@+id/landingScreenNav"
+        android:name="com.fandom.quiz.landing.LandingScreenFragment"
+        />
+
+</navigation>
