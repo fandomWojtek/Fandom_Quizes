@@ -1,4 +1,4 @@
-package com.fandom.fandom.quiz.fcm
+package com.fandom.fandom.quiz.notification
 
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.tasks.await

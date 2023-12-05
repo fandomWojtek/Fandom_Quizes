@@ -31,12 +31,15 @@
         </activity>
 
         <service
-            android:name=".fcm.QuizFirebaseService"
+            android:name=".notification.QuizFirebaseService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <meta-data android:name="com.onesignal.NotificationServiceExtension"
+            android:value="com.fandom.fandom.quiz.fcm.NotificationServiceExtension" />
 
     </application>
 

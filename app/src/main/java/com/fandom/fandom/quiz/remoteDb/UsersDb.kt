@@ -1,6 +1,5 @@
 package com.fandom.fandom.quiz.remoteDb
 
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 
@@ -14,7 +13,7 @@ class UsersDb(private val firestore: FirebaseFirestore) {
         UserEntity(
             userName = it.getString(USERNAME) ?: "",
             userPhoto = it.getString(USER_PHOTO) ?: "",
-            lastActive = it.getLong(LAST_ACTIVE) ?: 0L,
+            lastActive = it.getLong(LAST_ACTIVE)?: 0L,
             id = it.id,
             points = it.getLong(POINTS)?.toInt() ?: 0
         )
@@ -24,5 +23,9 @@ class UsersDb(private val firestore: FirebaseFirestore) {
 
     suspend fun getUserActiveInLastNMinutes(numberOfMinutes: Int = 5) = getAllUsers().filter {
         it.lastActive >= System.currentTimeMillis() - numberOfMinutes * TIME_OF_MINUTE
+    }
+
+    suspend fun updateCurrentTimeStampForUser(id:String) {
+        firestore.collection(USERS_COLLECTION).document(id).update(LAST_ACTIVE, System.currentTimeMillis()).await()
     }
 }

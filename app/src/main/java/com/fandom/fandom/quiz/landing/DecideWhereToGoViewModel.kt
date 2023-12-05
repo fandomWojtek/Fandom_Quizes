@@ -10,8 +10,8 @@ import kotlinx.coroutines.launch
 class DecideWhereToGoViewModel(private val userRepository: UserRepository):ViewModel() {
 
 
-    private val _goToLogin : MutableStateFlow<Unit> = MutableStateFlow(Unit)
-    val goToLogin : StateFlow<Unit> =  _goToLogin
+    private val _goToLogin : MutableSharedFlow<Unit> = MutableSharedFlow(replay = 0 )
+    val goToLogin : SharedFlow<Unit> =  _goToLogin
 
     private val _goToLeaderBoard : MutableSharedFlow<Unit> = MutableSharedFlow(replay = 0 )
     val goToLeaderBoard : SharedFlow<Unit> =  _goToLeaderBoard

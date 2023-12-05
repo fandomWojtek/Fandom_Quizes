@@ -1,6 +1,5 @@
-package com.fandom.fandom.quiz.fcm
+package com.fandom.fandom.quiz.notification
 
-import android.util.Log
 import com.google.firebase.messaging.RemoteMessage
 
 class QuizFirebaseService : com.google.firebase.messaging.FirebaseMessagingService() {
