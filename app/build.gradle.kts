@@ -46,7 +46,7 @@ android {
 
         getByName("debug")
         {
-            storeFile = file("../wikia_debug.keystore")
+            storeFile = file("../keystore_debug.keystore")
             storePassword = "android"
             keyAlias = "androiddebugkey"
             keyPassword = "android"
@@ -70,6 +70,9 @@ dependencies {
     implementation(Deps.androidMaterial)
     implementation(Deps.androidxRecyclerview)
 
+    //AUTH
+    implementation(Deps.playServicesAuth)
+
     //KOIN
     implementation(Deps.koin)
 
@@ -78,7 +81,6 @@ dependencies {
 
     //ViewModel
     implementation(Deps.androidxLifecycleViewmodelKtx)
-
 
     //ktor
     implementation(KmmDependecies.Common.Ktor.core)

@@ -8,12 +8,13 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import com.fandom.fandom.quiz.databinding.MainActivityBinding
+import com.fandom.fandom.quiz.auth.AuthViewModel
 import com.fandom.fandom.quiz.fcm.getToken
 import com.fandom.fandom.quiz.utils.viewBinding
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity(R.layout.main_activity) {
-
 
     val binding by viewBinding(MainActivityBinding::inflate)
 
