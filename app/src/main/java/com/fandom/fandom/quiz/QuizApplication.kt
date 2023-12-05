@@ -3,12 +3,9 @@ package com.fandom.fandom.quiz
 import android.app.Application
 import android.content.Context
 import com.fandom.fandom.quiz.auth.authModule
-import com.fandom.fandom.quiz.auth.googleApiClientProvider
 import com.fandom.fandom.quiz.landing.landingModule
 import com.fandom.fandom.quiz.networking.networkModule
 import com.fandom.fandom.quiz.remoteDb.UsersDb
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.onesignal.OneSignal

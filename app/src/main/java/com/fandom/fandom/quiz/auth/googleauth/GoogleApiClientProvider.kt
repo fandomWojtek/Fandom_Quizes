@@ -1,4 +1,4 @@
-package com.fandom.fandom.quiz.auth
+package com.fandom.fandom.quiz.auth.googleauth
 
 import android.content.Context
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -37,5 +37,5 @@ class GoogleApiClientProvider(private val context: Context) {
 }
 
 val googleApiClientProvider = module {
-    factory { GoogleApiClientProvider(androidContext())}
+    factory { GoogleApiClientProvider(androidContext()) }
 }

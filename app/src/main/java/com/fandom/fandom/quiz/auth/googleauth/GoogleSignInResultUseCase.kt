@@ -1,4 +1,4 @@
-package com.fandom.fandom.quiz.auth
+package com.fandom.fandom.quiz.auth.googleauth
 
 import android.content.Intent
 import com.google.android.gms.auth.api.signin.GoogleSignIn
