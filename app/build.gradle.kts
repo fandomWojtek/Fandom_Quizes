@@ -73,6 +73,12 @@ dependencies {
     //KOIN
     implementation(Deps.koin)
 
+    //coroutines
+    implementation(Deps.kotlinxCoroutinesAndroid)
+
+    //ViewModel
+    implementation(Deps.androidxLifecycleViewmodelKtx)
+
 
     //ktor
     implementation(KmmDependecies.Common.Ktor.core)
