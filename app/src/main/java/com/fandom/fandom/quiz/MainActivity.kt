@@ -11,21 +11,13 @@ import com.fandom.fandom.quiz.utils.viewBinding
 
 class MainActivity : AppCompatActivity(R.layout.main_activity) {
 
-    val binding by viewBinding(MainActivityBinding::inflate)
+    private val binding by viewBinding(MainActivityBinding::inflate)
 
-    private val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
-        override fun handleOnBackPressed() {
-            if (!navController.navigateUp()) {
-                isEnabled = false
-                finish()
-            }
-        }
-    }
+
     private val navController: NavController
         get() = Navigation.findNavController(binding.quizNavHost)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        onBackPressedDispatcher.addCallback(this, callback)
 
         if (supportFragmentManager.findFragmentByTag(NavHostFragment::class.java.name) == null) {
             val finalHost = NavHostFragment.create(R.navigation.quiz_navigation)

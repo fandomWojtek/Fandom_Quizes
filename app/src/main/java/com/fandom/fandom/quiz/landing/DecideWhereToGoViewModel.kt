@@ -19,7 +19,7 @@ class DecideWhereToGoViewModel(private val userRepository: UserRepository):ViewM
 
     fun checkWhereToGo(){
         viewModelScope.launch {
-            delay(2000)
+            delay(500)
             if(userRepository.isUserLoggedIn()){
                 _goToLeaderBoard.emit(Unit)
             }else{
