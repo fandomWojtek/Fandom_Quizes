@@ -44,26 +44,27 @@ android {
     signingConfigs {
 
         getByName("debug")
-            {
-                storeFile = file("../wikia_debug.keystore")
-                storePassword = "android"
-                keyAlias = "androiddebugkey"
-                keyPassword = "android"
-            }
+        {
+            storeFile = file("../wikia_debug.keystore")
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
         }
     }
+}
 
-    dependencies {
+dependencies {
 
-        implementation(platform(Deps.firebaseBoM))
+    implementation(platform(Deps.firebaseBoM))
+    implementation(Deps.firebaseMessaging)
 
-        implementation(Deps.androidxCore)
-        implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
-        implementation(Deps.androidxAppcompat)
-        implementation(Deps.androidxConstraintlayout)
-        implementation(Deps.androidMaterial)
-        implementation(Deps.androidxRecyclerview)
+    implementation(Deps.androidxCore)
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+    implementation(Deps.androidxAppcompat)
+    implementation(Deps.androidxConstraintlayout)
+    implementation(Deps.androidMaterial)
+    implementation(Deps.androidxRecyclerview)
 
-        testImplementation("junit:junit:4.13.2")
+    testImplementation("junit:junit:4.13.2")
 
-    }
+}
