@@ -18,14 +18,16 @@ class LandingScreenFragment : Fragment(R.layout.landing_screen_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        safelyCollectFlow(viewModel.goToLeaderBoard) {
-            findNavController().navigate(R.id.action_landingScreenNav_to_leaderboardFragmentNav)
-        }
-        safelyCollectFlow(viewModel.goToLogin) {
-            findNavController().navigate(R.id.action_landingScreenNav_to_authFragmentNav)
-        }
+        findNavController().navigate(R.id.action_landingScreenNav_to_leaderboardFragmentNav)
 
-        viewModel.checkWhereToGo()
+//        safelyCollectFlow(viewModel.goToLeaderBoard) {
+//            findNavController().navigate(R.id.action_landingScreenNav_to_leaderboardFragmentNav)
+//        }
+//        safelyCollectFlow(viewModel.goToLogin) {
+//            findNavController().navigate(R.id.action_landingScreenNav_to_authFragmentNav)
+//        }
+//
+//        viewModel.checkWhereToGo()
     }
 }
 
