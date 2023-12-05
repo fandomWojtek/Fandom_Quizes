@@ -81,7 +81,7 @@ object Versions {
     const val rxIdler = "0.11.0"
 
     //rest
-    const val glide = "4.15.1"
+    const val glide = "4.16.0"
     const val retrofit = "2.9.0"
     const val kotlinSerializationConverter = "1.0.0"
     const val okhttp = "4.11.0"

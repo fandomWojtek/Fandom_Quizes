@@ -34,5 +34,14 @@
 
     <fragment
         android:id="@+id/leaderboardFragmentNav"
-        android:name="com.fandom.fandom.quiz.leaderboard.LeaderBoardFragment"/>
+        android:name="com.fandom.fandom.quiz.leaderboard.LeaderBoardFragment">
+        <action
+            android:id="@+id/action_leaderboardFragmentNav_to_chooseCategoryFragmentNav"
+            app:destination="@id/chooseCategoryFragmentNav" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/chooseCategoryFragmentNav"
+        android:name="com.fandom.fandom.quiz.categories.ChooseCategoryFragment"
+        />
 </navigation>
