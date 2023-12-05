@@ -10,6 +10,8 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.onesignal.OneSignal
 import com.onesignal.debug.LogLevel
+import com.onesignal.notifications.INotificationLifecycleListener
+import com.onesignal.notifications.INotificationWillDisplayEvent
 import kotlinx.coroutines.*
 import org.koin.android.ext.koin.*
 import org.koin.core.context.GlobalContext.startKoin
@@ -24,7 +26,7 @@ class QuizApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@QuizApplication)
-            modules(networkModule("url", true), authModule,appModule,landingModule)
+            modules(networkModule("url", true), authModule, appModule, landingModule)
         }
 
         // Verbose Logging set to help debug issues, remove before releasing your app.

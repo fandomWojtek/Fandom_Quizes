@@ -1,23 +1,30 @@
 package com.fandom.fandom.quiz.fcm.send
 
+import com.fandom.fandom.quiz.auth.domain.UserRepository
 import com.fandom.fandom.quiz.game.Game
 import com.fandom.fandom.quiz.remoteDb.UserEntity
-import com.google.firebase.FirebaseApp
-import com.google.firebase.messaging.FirebaseMessaging
-import com.google.firebase.messaging.RemoteMessage
 import io.ktor.client.HttpClient
+import io.ktor.client.request.*
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
 
-class SendPush(private val messaging: FirebaseMessaging,private val httpApiClient: HttpClient) {
+class SendPush(private val httpApiClient: HttpClient,private val currentUserRepository: UserRepository) {
+
+    private val restApiOneSignalKey = "YWI1ZGMzNmItNGI1NS00M2E5LWFkNTUtYjNmYWVlYTk5NTU2"
+
     init {
-        "https://fcm.googleapis.com/v1/fandom-quiz-98279"
+
     }
 
-    suspend fun sendInvitationToGame(userEntity: UserEntity,game:Game){
-        val remoteMessage:RemoteMessage = RemoteMessage.Builder(SERVER_KEY)
-            .setMessageId(userEntity.id)
-            .addData("game",game.toString())
-            .build()
-//        messaging.send()
+    suspend fun sendInvitationToGame(toUser: UserEntity, game: Game) {
+        val request = AppNotification(includeAliases = IncludeAliases(listOf(toUser.id)), customData = game)
+        httpApiClient.post {
+            header("Authorization", restApiOneSignalKey)
+            contentType(ContentType.Application.Json)
+            accept(ContentType.Application.Json)
+            setBody(request)
+        }
     }
 
 }
+

@@ -38,6 +38,9 @@
             </intent-filter>
         </service>
 
+        <meta-data android:name="com.onesignal.NotificationServiceExtension"
+            android:value="com.fandom.fandom.quiz.fcm.NotificationServiceExtension" />
+
     </application>
 
 </manifest>
