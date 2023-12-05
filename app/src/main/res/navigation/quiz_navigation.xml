@@ -12,7 +12,7 @@
 
     <fragment
         android:id="@+id/landingScreenNav"
-        android:name="com.fandom.fandom.quiz.auth.AuthFragment"
+        android:name="com.fandom.fandom.quiz.landing.LandingScreenFragment"
         />
 
 </navigation>
