@@ -14,13 +14,13 @@ class SignInViewModel(private val useCase: SignInUseCase) : ViewModel() {
     private val _userLoggedIn: MutableSharedFlow<Unit> = MutableSharedFlow(replay = 0)
     val userLoggedIn: SharedFlow<Unit> = _userLoggedIn
     private val _login: MutableStateFlow<String> = MutableStateFlow("")
-    val login: StateFlow<String> = _login
+
 
     val canSignIn: Flow<Boolean> = _login.map { it.isNotBlank() }
     fun signIn() {
         viewModelScope.launch {
-            if (login.value.isNullOrBlank()) return@launch
-            useCase.signIn(UserEntity(login.value, "", Date().time, "", 0))
+            if (_login.value.isBlank()) return@launch
+            useCase.signIn(UserEntity(_login.value, "", Date().time, "", 0))
             _userLoggedIn.emit(Unit)
         }
     }

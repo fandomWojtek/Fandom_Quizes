@@ -1,8 +1,8 @@
-package com.fandom.fandom.quiz.fcm
+package com.fandom.fandom.quiz.notification
 
-import com.fandom.fandom.quiz.fcm.send.CommunicationType
+import com.fandom.fandom.quiz.notification.send.CommunicationType
 import com.fandom.fandom.quiz.game.Game
-import com.fandom.fandom.quiz.notification.CommunicationManager
+import com.fandom.fandom.quiz.communication.CommunicationManager
 import com.onesignal.notifications.INotificationReceivedEvent
 import com.onesignal.notifications.INotificationServiceExtension
 import kotlinx.serialization.json.Json

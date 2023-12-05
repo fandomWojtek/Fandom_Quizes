@@ -14,7 +14,7 @@ class UsersDb(private val firestore: FirebaseFirestore) {
         UserEntity(
             userName = it.getString(USERNAME) ?: "",
             userPhoto = it.getString(USER_PHOTO) ?: "",
-            lastActive = it.getLong(LAST_ACTIVE) ?: 0L,
+            lastActive = it.getTimestamp(LAST_ACTIVE)?.toDate()?.time ?: 0L,
             id = it.id,
             points = it.getLong(POINTS)?.toInt() ?: 0
         )

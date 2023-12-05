@@ -1,7 +1,7 @@
 package com.fandom.fandom.quiz.game
 
-import com.fandom.fandom.quiz.fcm.send.Communication
-import com.fandom.fandom.quiz.fcm.send.CommunicationType
+import com.fandom.fandom.quiz.notification.send.Communication
+import com.fandom.fandom.quiz.notification.send.CommunicationType
 import com.fandom.fandom.quiz.remoteDb.UserEntity
 import kotlinx.serialization.Serializable
 

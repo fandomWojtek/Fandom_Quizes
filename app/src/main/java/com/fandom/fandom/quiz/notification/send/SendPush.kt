@@ -1,4 +1,4 @@
-package com.fandom.fandom.quiz.fcm.send
+package com.fandom.fandom.quiz.notification.send
 
 import com.fandom.fandom.quiz.auth.domain.UserRepository
 import com.fandom.fandom.quiz.game.Game

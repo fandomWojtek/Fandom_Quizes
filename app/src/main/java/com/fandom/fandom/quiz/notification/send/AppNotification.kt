@@ -1,7 +1,6 @@
-package com.fandom.fandom.quiz.fcm.send
+package com.fandom.fandom.quiz.notification.send
 
 
-import com.fandom.fandom.quiz.game.Game
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
