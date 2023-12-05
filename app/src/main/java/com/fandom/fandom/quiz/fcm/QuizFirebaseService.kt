@@ -1,6 +1,7 @@
 package com.fandom.fandom.quiz.fcm
 
 import android.util.Log
+import com.google.firebase.messaging.RemoteMessage
 
 class QuizFirebaseService : com.google.firebase.messaging.FirebaseMessagingService() {
 
@@ -11,5 +12,9 @@ class QuizFirebaseService : com.google.firebase.messaging.FirebaseMessagingServi
 //        // manage this apps subscriptions on the server side, send the
 //        // FCM registration token to your app server.
 //        sendRegistrationToServer(token)
+    }
+
+    override fun onMessageReceived(message: RemoteMessage) {
+        super.onMessageReceived(message)
     }
 }
