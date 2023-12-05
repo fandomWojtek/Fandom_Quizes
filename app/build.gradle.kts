@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
+    kotlin("plugin.serialization") version Versions.kotlin
 }
 
 android {
@@ -68,6 +69,16 @@ dependencies {
     //KOIN
     implementation(Deps.koin)
 
+
+    //ktor
+    implementation(KmmDependecies.Common.Ktor.core)
+    implementation(KmmDependecies.Common.Ktor.content)
+    implementation(KmmDependecies.Common.Ktor.serializationJson)
+    implementation(KmmDependecies.Common.Ktor.logging)
+    implementation(KmmDependecies.Android.ktorOkHttp)
+    implementation(KmmDependecies.kotlinSerializer)
+
+    
     testImplementation("junit:junit:4.13.2")
 
 }
