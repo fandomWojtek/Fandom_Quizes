@@ -1,3 +1,5 @@
+import java.net.URI
+
 pluginManagement {
     repositories {
         google()
@@ -15,4 +17,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "Fandom Quizes"
 include(":app")
- 

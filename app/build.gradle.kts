@@ -64,6 +64,7 @@ dependencies {
     implementation(Deps.firebaseMessaging)
     implementation("com.google.firebase:firebase-firestore")
 
+    implementation ("com.onesignal:OneSignal:[5.0.0, 5.99.99]")
     implementation(Deps.androidxCore)
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation(Deps.androidxAppcompat)

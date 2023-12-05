@@ -1,9 +1,13 @@
 package com.fandom.fandom.quiz.remoteDb
 
+import kotlinx.serialization.Serializable
+
 internal const val USERNAME = "userName"
 internal  const val USER_PHOTO = "userPhoto"
 internal  const val LAST_ACTIVE = "lastActive"
 internal  const val POINTS = "points"
+
+@Serializable
 data class UserEntity(
     val userName:String,
     val userPhoto:String = "",
