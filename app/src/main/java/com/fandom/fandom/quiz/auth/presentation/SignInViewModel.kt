@@ -20,7 +20,7 @@ class SignInViewModel(private val useCase: SignInUseCase) : ViewModel() {
     fun signIn() {
         viewModelScope.launch {
             if (login.value.isNullOrBlank()) return@launch
-            useCase.signIn(UserEntity(login.value, "", Date().time, "", 0))
+            useCase.signIn(UserEntity(userName = login.value, userPhoto = "", lastActive = Date().time, id = "", points = 0))
             _userLoggedIn.emit(Unit)
         }
     }
