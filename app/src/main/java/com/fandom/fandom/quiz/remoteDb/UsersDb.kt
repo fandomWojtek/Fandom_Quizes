@@ -1,6 +1,5 @@
 package com.fandom.fandom.quiz.remoteDb
 
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 

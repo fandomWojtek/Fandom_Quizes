@@ -2,21 +2,23 @@ package com.fandom.fandom.quiz.auth.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.fandom.fandom.quiz.auth.domain.SignInUseCase
+import com.fandom.fandom.quiz.auth.domain.*
 import com.fandom.fandom.quiz.remoteDb.UserEntity
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.util.Date
-import java.util.UUID
 
-class SignInViewModel(private val useCase: SignInUseCase) : ViewModel() {
+
+class SignInViewModel(private val useCase: SignInUseCase, private val checkCurrentUserNameUseCase: CheckCurrentUserNameUseCase) : ViewModel() {
 
     private val _userLoggedIn: MutableSharedFlow<Unit> = MutableSharedFlow(replay = 0)
     val userLoggedIn: SharedFlow<Unit> = _userLoggedIn
     private val _login: MutableStateFlow<String> = MutableStateFlow("")
 
 
-    val canSignIn: Flow<Boolean> = _login.map { it.isNotBlank() }
+    val canSignIn: Flow<SignInState> = _login.map { checkCurrentUserNameUseCase.checkCurrentUserName(it) }
+
+
     fun signIn() {
         viewModelScope.launch {
             if (_login.value.isBlank()) return@launch
