@@ -35,6 +35,3 @@ class AuthViewModel internal constructor(private val googleUseCase: GoogleSignIn
 
 }
 
-val authModule = module {
-    viewModel{AuthViewModel(get()) }
-}

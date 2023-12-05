@@ -1,5 +1,6 @@
 package com.fandom.fandom.quiz.remoteDb
 
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 
@@ -19,7 +20,7 @@ class UsersDb(private val firestore: FirebaseFirestore) {
         )
     }
 
-    suspend fun addUser(user: UserEntity) = firestore.collection(USERS_COLLECTION).add(user.mapOfElements()).await()
+    suspend fun addUser(user: UserEntity): UserEntity = user.copy(id = firestore.collection(USERS_COLLECTION).add(user.mapOfElements()).await().id)
 
     suspend fun getUserActiveInLastNMinutes(numberOfMinutes: Int = 5) = getAllUsers().filter {
         it.lastActive >= System.currentTimeMillis() - numberOfMinutes * TIME_OF_MINUTE

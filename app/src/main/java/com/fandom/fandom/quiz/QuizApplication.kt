@@ -1,26 +1,33 @@
 package com.fandom.fandom.quiz
 
 import android.app.Application
+import android.content.Context
 import com.fandom.fandom.quiz.auth.authModule
 import com.fandom.fandom.quiz.auth.googleApiClientProvider
+import com.fandom.fandom.quiz.landing.landingModule
 import com.fandom.fandom.quiz.networking.networkModule
+import com.fandom.fandom.quiz.remoteDb.UsersDb
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.firestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.onesignal.OneSignal
 import com.onesignal.debug.LogLevel
 import kotlinx.coroutines.*
-import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
+import org.koin.android.ext.koin.*
 import org.koin.core.context.GlobalContext.startKoin
+import org.koin.dsl.module
 
 private const val ONESIGNAL_APP_ID = "2fd8e624-7df4-432c-b00e-8d52cf449144"
 
-class QuizApplication:Application() {
+class QuizApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
         startKoin {
             androidLogger()
             androidContext(this@QuizApplication)
-            modules(networkModule("url",true), authModule, googleApiClientProvider)
+            modules(networkModule("url", true), authModule,appModule,landingModule)
         }
 
         // Verbose Logging set to help debug issues, remove before releasing your app.
@@ -35,4 +42,10 @@ class QuizApplication:Application() {
             OneSignal.Notifications.requestPermission(true)
         }
     }
+}
+
+val appModule = module {
+    single { OneSignal }
+    single { UsersDb(Firebase.firestore) }
+    single { androidApplication().getSharedPreferences("shared", Context.MODE_PRIVATE) }
 }

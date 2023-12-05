@@ -13,6 +13,26 @@
     <fragment
         android:id="@+id/landingScreenNav"
         android:name="com.fandom.fandom.quiz.landing.LandingScreenFragment"
-        />
+        >
+        <action
+            android:id="@+id/action_landingScreenNav_to_authFragmentNav"
+            app:destination="@id/authFragmentNav" />
+        <action
+            android:id="@+id/action_landingScreenNav_to_leaderboardFragmentNav"
+            app:destination="@id/leaderboardFragmentNav" />
+    </fragment>
 
+    <fragment
+        android:id="@+id/authFragmentNav"
+        android:name="com.fandom.fandom.quiz.auth.AuthFragment"
+        >
+        <action
+            android:id="@+id/action_authFragmentNav_to_leaderboardFragmentNav"
+            app:destination="@id/leaderboardFragmentNav"
+            app:popUpTo="@id/landingScreenNav"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/leaderboardFragmentNav"
+        android:name="com.fandom.fandom.quiz.leaderboard.LeaderBoardFragment"/>
 </navigation>
