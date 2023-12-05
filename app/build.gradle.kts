@@ -80,7 +80,7 @@ dependencies {
 
     //coroutines
     implementation(Deps.kotlinxCoroutinesAndroid)
-
+    implementation(Deps.glide)
     //ViewModel
     implementation(Deps.androidxLifecycleViewmodelKtx)
 
