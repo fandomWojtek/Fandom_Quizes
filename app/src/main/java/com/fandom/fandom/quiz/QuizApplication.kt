@@ -27,7 +27,7 @@ class QuizApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@QuizApplication)
-            modules(networkModule("url", true), authModule,appModule,landingModule,leaderBoardModule)
+            modules(networkModule("url", true), authModule, appModule, landingModule, leaderBoardModule)
         }
 
         // Verbose Logging set to help debug issues, remove before releasing your app.

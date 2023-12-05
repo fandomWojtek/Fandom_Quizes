@@ -26,7 +26,6 @@ class LeaderBoardFragment:Fragment(R.layout.fragment_leaderboard) {
             adapter.submitList(it)
         }
     }
-
 }
 
 val leaderBoardModule = module {
