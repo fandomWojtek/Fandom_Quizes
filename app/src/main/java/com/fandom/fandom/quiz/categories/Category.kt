@@ -1,6 +1,9 @@
 package com.fandom.fandom.quiz.categories
 
-data class Category(val name: String, val id: String, val image: String)
+import android.os.Parcelable
+
+@Parcelize
+data class Category(val name: String, val id: String, val image: String):Parcelable
 
 
 val categoryList = listOf(

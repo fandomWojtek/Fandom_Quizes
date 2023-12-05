@@ -12,8 +12,7 @@
 
     <fragment
         android:id="@+id/landingScreenNav"
-        android:name="com.fandom.fandom.quiz.landing.LandingScreenFragment"
-        >
+        android:name="com.fandom.fandom.quiz.landing.LandingScreenFragment">
         <action
             android:id="@+id/action_landingScreenNav_to_authFragmentNav"
             app:destination="@id/authFragmentNav" />
@@ -24,12 +23,11 @@
 
     <fragment
         android:id="@+id/authFragmentNav"
-        android:name="com.fandom.fandom.quiz.auth.AuthFragment"
-        >
+        android:name="com.fandom.fandom.quiz.auth.AuthFragment">
         <action
             android:id="@+id/action_authFragmentNav_to_leaderboardFragmentNav"
             app:destination="@id/leaderboardFragmentNav"
-            app:popUpTo="@id/landingScreenNav"/>
+            app:popUpTo="@id/landingScreenNav" />
     </fragment>
 
     <fragment
@@ -42,6 +40,17 @@
 
     <fragment
         android:id="@+id/chooseCategoryFragmentNav"
-        android:name="com.fandom.fandom.quiz.categories.ChooseCategoryFragment"
-        />
+        android:name="com.fandom.fandom.quiz.categories.ChooseCategoryFragment">
+        <action
+            android:id="@+id/action_chooseCategoryFragmentNav_to_chooseOponentFragmentNav"
+            app:destination="@id/chooseOponentFragmentNav" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/chooseOponentFragmentNav"
+        android:name="com.fandom.fandom.quiz.opponent.ChooseOpponentFragment">
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+    </fragment>
 </navigation>
