@@ -65,6 +65,9 @@ dependencies {
     implementation(Deps.androidMaterial)
     implementation(Deps.androidxRecyclerview)
 
+    //KOIN
+    implementation(Deps.koin)
+
     testImplementation("junit:junit:4.13.2")
 
 }
