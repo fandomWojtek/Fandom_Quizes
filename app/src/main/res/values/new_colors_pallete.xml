@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="product_link">#088488</color>
+    <color name="linkhover">#005252</color>
+    <color name="product_button">#00cdd0</color>
+    <color name="alert">#e81a3f</color>
+    <color name="success">#018c30</color>
+    <color name="warning">#de5e33</color>
+    <color name="message">#008c8f</color>
+    <color name="product_ui_grays_white">#ffffff</color>
+    <color name="light_gray">#f3f5f5</color>
+    <color name="product_mid_light_grey">#bed1cf</color>
+    <color name="product_middle_grey">#7f9998</color>
+    <color name="dark_gray">#5f7a7b</color>
+    <color name="product_black">#0e191a</color>
+    <color name="coral">#ff6a64</color>
+    <color name="brand_lead_colors_purple">#520044</color>
+    <color name="brand_lead_colors_red">#fa005a</color>
+    <color name="brand_lead_colors_yellow">#ffc500</color>
+    <color name="brand_secondary_colors_crimson">#9b004e</color>
+    <color name="brand_secondary_colors_cream">#f9edd8</color>
+    <color name="product_dark_theme_text_link">#ffc500</color>
+    <color name="product_light_theme_text_link">#9b004e</color>
+    <color name="product_ui_grays_middle_gray">#595358</color>
+    <color name="product_ui_grays_mid_light_gray">#d6d0d5</color>
+    <color name="product_ui_black">#1e0c1b</color>
+    <color name="product_ui_grays_dark_gray">#291927</color>
+    <color name="notification_dark">#e2001b</color>
+    <color name="notification_colors_alert_light">#bf0017</color>
+    <color name="product_light_theme_button">#520044</color>
+    <color name="product_light_cream">#fbf2e4</color>
+    <color name="product_white">#ffffff</color>
+    <color name="product_ui_grays_light_gray">#f5f3f5</color>
+</resources>
