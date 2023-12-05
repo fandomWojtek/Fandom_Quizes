@@ -69,7 +69,7 @@ object Versions {
     const val androidMaterial = "1.9.0"
 
     //firebase
-    const val firebaseBoM = "32.1.1"
+    const val firebaseBoM = "32.6.0"
 
     //amplitude
     const val amplitude = "1.7.1"
