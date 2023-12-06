@@ -58,12 +58,18 @@ class CurrentQuizManager(
 
     private val _currentOpponentResponses: MutableSharedFlow<OpponentResponses> = MutableSharedFlow(replay = 0)
     val currentOpponentResponses: SharedFlow<OpponentResponses> = _currentOpponentResponses
+
+    private val _currentUserResponses: MutableSharedFlow<OpponentResponses> = MutableSharedFlow(replay = 0)
+    val currentUserResponses: SharedFlow<OpponentResponses> = _currentUserResponses
+
+
     suspend fun persistCurrentOpponentResponses(responses: OpponentResponses) {
         _currentOpponentResponses.emit(responses)
     }
 
 
     suspend fun sendQuestionResponse(questions: OpponentResponses) {
+        _currentUserResponses.emit(questions)
         sendPush.sendQuestionResponse(
             _currentOpponent.value,
             SendQuestionResponse(userRepository.getCurrentUser()?.id ?: "", _currentOpponent.value, questions.list.map { if (it.correct) 1 else 0 }, questions.list.map { it.time })
