@@ -46,7 +46,7 @@
                     tools:src="@drawable/avatar01"/>
 
                 <ImageView
-                    app:layout_constraintHorizontal_bias="0f"
+                    app:layout_constraintHorizontal_bias="0.0"
                     android:id="@+id/user2"
                     android:layout_width="@dimen/podium_size"
                     android:layout_height="@dimen/podium_size"
@@ -56,7 +56,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/user1"
                     tools:src="@drawable/avatar01"/>
                 <ImageView
-                    app:layout_constraintHorizontal_bias="1.0f"
+                    app:layout_constraintHorizontal_bias="1.0"
                     android:id="@+id/user3"
                     android:layout_width="@dimen/podium_size"
                     android:layout_height="@dimen/podium_size"
@@ -65,14 +65,15 @@
                     app:layout_constraintStart_toEndOf="@+id/user1"
                     app:layout_constraintEnd_toEndOf="@+id/podium"
                     tools:src="@drawable/avatar01"/>
+
                 <ImageView
                     android:id="@+id/podium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:src="@drawable/podium"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:src="@drawable/podium"/>
+                    app:layout_constraintStart_toStartOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
