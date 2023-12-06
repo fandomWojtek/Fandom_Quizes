@@ -29,6 +29,7 @@ class CurrentQuizManager(
             accepted = it.accepted
             !(it.forQuiz == quiz.id && it.fromUserEntity == currentUser.id)
         }.collect()
+        _currentQuizState.emit(quiz)
         return accepted
     }
 
