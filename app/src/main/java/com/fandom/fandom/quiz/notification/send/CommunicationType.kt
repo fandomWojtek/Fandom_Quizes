@@ -11,21 +11,25 @@ enum class CommunicationType {
 
 @Serializable
 sealed interface Communication {
+    @Serializable
     val comType: CommunicationType
 }
 
 @Serializable
 data class Game(
     val category: String,
-    val quiz: Quiz,
-    val fromUser: UserEntity,
+    val quiz: QuizMetaData,
+    val fromUser: String,
     override val comType: CommunicationType = CommunicationType.INVITATION_TO_GAME
 ) : Communication
 
 @Serializable
 data class InvitationAccepted(
-    val fromUserEntity: UserEntity,
+    val fromUserEntity: String,
     val forQuiz: Int,
     val accepted: Boolean = false,
     override val comType: CommunicationType = CommunicationType.ACCEPT_INVITATION
 ) : Communication
+
+@Serializable
+data class QuizMetaData(val quizId: Int, val questions: List<String>)

@@ -1,6 +1,7 @@
 package com.fandom.fandom.quiz.quiz.api
 
 
+import com.fandom.fandom.quiz.notification.send.QuizMetaData
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -9,6 +10,7 @@ data class QuizResponse(
     @SerialName("quizzes")
     val quizzes: List<Quiz>
 )
+
 @Serializable
 data class Quiz(
     @SerialName("description")
@@ -23,7 +25,10 @@ data class Quiz(
     val siteId: String,
     @SerialName("title")
     val title: String
-)
+) {
+    fun toQuizMetadata(): QuizMetaData = QuizMetaData(id, questions.map { it.id })
+}
+
 @Serializable
 data class Question(
     @SerialName("answers")

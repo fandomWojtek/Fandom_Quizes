@@ -22,19 +22,20 @@ class CurrentQuizManager(
 
     suspend fun loadQuizAndInviteUserToIt(userToInvite: UserEntity, siteId: String):Boolean {
         val quiz = loadQuizUseCase.loadQuiz(siteId)
-
         val currentUser = userRepository.getCurrentUser()!!
-        sendPush.sendInvitationToGame(userToInvite, Game(categoryList.find { it.id == siteId }!!.name, quiz, currentUser))
+        sendPush.sendInvitationToGame(userToInvite, Game(categoryList.find { it.id == siteId }!!.name, quiz.toQuizMetadata(), currentUser.id))
         var accepted:Boolean = false
         communicationManager.acceptInvitation.takeWhile {
             accepted = it.accepted
-            !(it.forQuiz == quiz.id && it.fromUserEntity.id == currentUser.id)
+            !(it.forQuiz == quiz.id && it.fromUserEntity == currentUser.id)
         }.collect()
         return accepted
     }
 
     suspend fun acceptInvitationAndSendInfoThatYouAreReady(game: Game) = coroutineScope {
-        _currentQuizState.emit(game.quiz)
-        sendPush.setGameAccepted(game.fromUser, game.quiz.id)
+        val quiz = loadQuizUseCase.loadQuiz(game.category)
+        _currentQuizState.emit(quiz)
+        userRepository.getCurrentUser()
+        sendPush.setGameAccepted(game.fromUser, game.quiz.quizId)
     }
 }

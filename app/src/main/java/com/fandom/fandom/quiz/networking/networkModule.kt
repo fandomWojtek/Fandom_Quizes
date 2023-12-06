@@ -17,6 +17,7 @@ const val TAG = "QUIZ_KTOR"
 fun networkModule(apiUrl: String, devBuilds: Boolean = false) = module {
     single {
         Json {
+            encodeDefaults = true
             prettyPrint = true
             ignoreUnknownKeys = true
             explicitNulls = false
