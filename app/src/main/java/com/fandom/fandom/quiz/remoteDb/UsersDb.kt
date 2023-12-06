@@ -27,4 +27,19 @@ class UsersDb(private val firestore: FirebaseFirestore) {
     suspend fun updateCurrentTimeStampForUser(id:String) {
         firestore.collection(USERS_COLLECTION).document(id).update(LAST_ACTIVE, System.currentTimeMillis()).await()
     }
+
+    suspend fun getUserById(id:String):UserEntity?{
+        val user = firestore.collection(USERS_COLLECTION).document(id).get().await()
+        return if(user.exists()){
+            UserEntity(
+                userName = user.getString(USERNAME) ?: "",
+                userPhoto = user.getString(USER_PHOTO) ?: "",
+                lastActive = user.getLong(LAST_ACTIVE)?: 0L,
+                id = user.id,
+                points = user.getLong(POINTS)?.toInt() ?: 0
+            )
+        }else{
+            null
+        }
+    }
 }

@@ -2,12 +2,12 @@ package com.fandom.fandom.quiz.landing
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.fandom.fandom.quiz.auth.domain.UserRepository
+import com.fandom.fandom.quiz.auth.domain.CurrentUserRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
-class DecideWhereToGoViewModel(private val userRepository: UserRepository):ViewModel() {
+class DecideWhereToGoViewModel(private val userRepository: CurrentUserRepository):ViewModel() {
 
 
     private val _goToLogin : MutableSharedFlow<Unit> = MutableSharedFlow(replay = 0 )

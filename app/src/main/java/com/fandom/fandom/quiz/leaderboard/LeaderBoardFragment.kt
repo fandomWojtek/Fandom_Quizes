@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.fandom.fandom.quiz.R
 import com.fandom.fandom.quiz.databinding.FragmentLeaderboardBinding
+import com.fandom.fandom.quiz.quiz.presentation.AwaitQuizInvitationViewModel
 import com.fandom.fandom.quiz.utils.*
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -14,6 +15,7 @@ import org.koin.dsl.module
 class LeaderBoardFragment : Fragment(R.layout.fragment_leaderboard) {
 
     private val viewModel: LeaderBoardViewModel by viewModel()
+
     val binding by viewBinding(FragmentLeaderboardBinding::bind)
     private val adapter by lazy {
         UserListAdapter()
@@ -28,6 +30,7 @@ class LeaderBoardFragment : Fragment(R.layout.fragment_leaderboard) {
         safelyCollectFlow(viewModel.allUsers) {
             adapter.submitList(it)
         }
+
     }
 
     override fun onStart() {

@@ -68,8 +68,11 @@
             app:destination="@id/quizScreenNav"
             app:popUpTo="@id/leaderboardFragmentNav" />
     </fragment>
-
+    <action android:id="@+id/action_global_quizScreenNav"
+        app:destination="@id/quizScreenNav"/>
     <fragment
         android:id="@+id/quizScreenNav"
-        android:name="com.fandom.fandom.quiz.quiz.QuizFragment" />
+        android:name="com.fandom.fandom.quiz.quiz.QuizFragment" >
+
+    </fragment>
 </navigation>

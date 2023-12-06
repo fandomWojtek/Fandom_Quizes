@@ -48,7 +48,7 @@ class AuthFragment : Fragment(R.layout.auth_screen_fragment) {
 
 
 val authModule = module {
-    single { UserRepository(get(), get()) }
+    single { CurrentUserRepository(get(), get()) }
     factory { SignInUseCase(get(), get(), get()) }
     factory { CheckCurrentUserNameUseCase(get()) }
     viewModel<SignInViewModel> { SignInViewModel(get(), get()) }
