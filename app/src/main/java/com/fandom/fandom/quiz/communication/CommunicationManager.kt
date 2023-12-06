@@ -1,6 +1,7 @@
 package com.fandom.fandom.quiz.communication
 
-import com.fandom.fandom.quiz.game.Game
+import com.fandom.fandom.quiz.notification.send.Game
+import com.fandom.fandom.quiz.notification.send.InvitationAccepted
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -20,7 +21,7 @@ class CommunicationManager(private val scope: CoroutineScope) {
     private val _acceptInvitation : MutableSharedFlow<InvitationAccepted> = MutableSharedFlow(replay = 0 )
     val acceptInvitation : SharedFlow<InvitationAccepted> =  _acceptInvitation
 
-    fun acceptInvitation(accepted:InvitationAccepted) {
+    fun acceptInvitation(accepted: InvitationAccepted) {
         scope.launch {
             _acceptInvitation.emit(accepted)
         }

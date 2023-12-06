@@ -3,7 +3,7 @@ package com.fandom.fandom.quiz.quiz.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fandom.fandom.quiz.communication.CommunicationManager
-import com.fandom.fandom.quiz.game.Game
+import com.fandom.fandom.quiz.notification.send.Game
 import com.fandom.fandom.quiz.quiz.domain.CurrentQuizManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow

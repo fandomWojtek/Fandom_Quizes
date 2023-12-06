@@ -38,14 +38,21 @@ class ChooseOponentViewModel(
 
     fun inviteUser(user: UserEntity) {
         viewModelScope.launch {
-            _waitForUserResponded.emit(true)
-            val accepted = currentQuizManager.loadQuizAndInviteUserToIt(user, categoryId)
-            _waitForUserResponded.emit(false)
-            if (accepted) {
-                _goToQuiz.emit(Unit)
-            } else {
-                _userDeclinedYourInvite.emit(Unit)
+            try {
+                _waitForUserResponded.emit(true)
+                val accepted = currentQuizManager.loadQuizAndInviteUserToIt(user, categoryId)
+                _waitForUserResponded.emit(false)
+                if (accepted) {
+                    _goToQuiz.emit(Unit)
+                } else {
+                    _userDeclinedYourInvite.emit(Unit)
+                }
+            }catch (ex:Exception){
+                android.util.Log.e("ChooseOponentViewModel",ex.message,ex)
+            }finally {
+                _waitForUserResponded.emit(false)
             }
+
         }
     }
 

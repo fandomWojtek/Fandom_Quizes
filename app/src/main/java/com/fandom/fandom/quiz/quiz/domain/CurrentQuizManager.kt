@@ -3,7 +3,7 @@ package com.fandom.fandom.quiz.quiz.domain
 import com.fandom.fandom.quiz.auth.domain.UserRepository
 import com.fandom.fandom.quiz.categories.categoryList
 import com.fandom.fandom.quiz.communication.CommunicationManager
-import com.fandom.fandom.quiz.game.Game
+import com.fandom.fandom.quiz.notification.send.Game
 import com.fandom.fandom.quiz.notification.send.SendPush
 import com.fandom.fandom.quiz.quiz.api.Quiz
 import com.fandom.fandom.quiz.remoteDb.UserEntity
