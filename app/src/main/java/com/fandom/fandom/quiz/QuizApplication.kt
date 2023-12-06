@@ -3,10 +3,13 @@ package com.fandom.fandom.quiz
 import android.app.Application
 import android.content.Context
 import com.fandom.fandom.quiz.auth.authModule
+import com.fandom.fandom.quiz.communication.communicationModule
 import com.fandom.fandom.quiz.landing.landingModule
 import com.fandom.fandom.quiz.leaderboard.leaderBoardModule
 import com.fandom.fandom.quiz.networking.networkModule
+import com.fandom.fandom.quiz.quiz.quizModule
 import com.fandom.fandom.quiz.opponent.opponentModule
+import com.fandom.fandom.quiz.remoteDb.UpdateCurrentUserLastInteractionTimeUseCase
 import com.fandom.fandom.quiz.remoteDb.UsersDb
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -28,7 +31,7 @@ class QuizApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@QuizApplication)
-            modules(networkModule("url", true), authModule, appModule, landingModule, leaderBoardModule, opponentModule)
+            modules(networkModule("url", true), authModule, appModule, landingModule, leaderBoardModule, opponentModule,communicationModule,quizModule)
         }
 
         // Verbose Logging set to help debug issues, remove before releasing your app.
@@ -48,5 +51,6 @@ class QuizApplication : Application() {
 val appModule = module {
     single { OneSignal }
     single { UsersDb(Firebase.firestore) }
+    factory { UpdateCurrentUserLastInteractionTimeUseCase(get(),get()) }
     single { androidApplication().getSharedPreferences("shared", Context.MODE_PRIVATE) }
 }

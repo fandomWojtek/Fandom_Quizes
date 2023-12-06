@@ -71,5 +71,5 @@
 
     <fragment
         android:id="@+id/quizScreenNav"
-        android:name="com.fandom.fandom.quiz.quiz.QuizFragment"></fragment>
+        android:name="com.fandom.fandom.quiz.quiz.QuizFragment" />
 </navigation>

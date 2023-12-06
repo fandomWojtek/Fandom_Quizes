@@ -18,7 +18,11 @@ class UsersDb(private val firestore: FirebaseFirestore) {
         )
     }
 
-    suspend fun addUser(user: UserEntity): UserEntity = user.copy(id = firestore.collection(USERS_COLLECTION).add(user.mapOfElements()).await().id)
+    suspend fun addUser(user: UserEntity): UserEntity {
+        val document = firestore.collection(USERS_COLLECTION).add(user.mapOfElements()).await()
+        val user = user.copy(id = document.id)
+      return user
+    }
 
     suspend fun getUserActiveInLastNMinutes(numberOfMinutes: Int = 5) = getAllUsers().filter {
        it.isActive(numberOfMinutes)
