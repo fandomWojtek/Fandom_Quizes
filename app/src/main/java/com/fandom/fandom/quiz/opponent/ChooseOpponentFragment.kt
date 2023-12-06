@@ -5,8 +5,6 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.fandom.fandom.quiz.R
 import com.fandom.fandom.quiz.databinding.FragmentChooseOponentBinding
-import com.fandom.fandom.quiz.leaderboard.LeaderBoardViewModel
-import com.fandom.fandom.quiz.leaderboard.UserListAdapter
 import com.fandom.fandom.quiz.utils.safelyCollectFlow
 import com.fandom.fandom.quiz.utils.viewBinding
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -28,11 +26,30 @@ class ChooseOpponentFragment:Fragment(R.layout.fragment_choose_oponent) {
         viewModel.getOpponents()
         binding.opponents.adapter = adapter
         safelyCollectFlow(viewModel.activeUsers) {
-            adapter.submitList(it)
+            if (it.isEmpty()) {
+                updateView(showEmptyState = true)
+            } else {
+                updateView(showEmptyState = false)
+                adapter.submitList(it)
+            }
+        }
+    }
+
+    private fun updateView(showEmptyState: Boolean) {
+        if (showEmptyState) {
+            binding.run {
+                emptyState.visibility = View.VISIBLE
+                opponents.visibility = View.GONE
+            }
+        } else {
+            binding.run {
+                emptyState.visibility = View.GONE
+                opponents.visibility = View.VISIBLE
+            }
         }
     }
 }
 
 val opponentModule = module {
-    viewModel { ChooseOponentViewModel(get()) }
+    viewModel { ChooseOponentViewModel(get(), get()) }
 }
