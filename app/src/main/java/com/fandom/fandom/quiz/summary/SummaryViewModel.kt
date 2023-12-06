@@ -47,11 +47,24 @@ class SummaryViewModel(
     fun summarizeTheQuiz() {
         viewModelScope.launch {
             currentQuizManager.currentUserResponses.combine(currentQuizManager.currentOpponentResponses) { userResponses, opponentResponses ->
-                if (userResponses.list[0].correct && !opponentResponses.list[0].correct) {
-                    _currentUserPoints.emit(currentUserPoints.value + 2)
-                } else if (!userResponses.list[0].correct && opponentResponses.list[0].correct) {
-                    _opponentPoints.emit(opponentPoints.value + 2)
+                var sum = 0
+                var opponentSum = 0
+                userResponses.list.indices.forEach { index ->
+                    if (userResponses.list[index].correct && !opponentResponses.list[index].correct) {
+                        sum += 2
+                    } else if (!userResponses.list[index].correct && opponentResponses.list[index].correct) {
+                        opponentSum += 2
+                    } else if (userResponses.list[index].correct && opponentResponses.list[index].correct) {
+                        if (userResponses.list[index].time > opponentResponses.list[index].time) {
+                            sum += 1
+                        } else if (userResponses.list[index].time < opponentResponses.list[index].time) {
+                            opponentSum += 1
+                        }
+                    }
                 }
+                _currentUserPoints.emit(sum)
+                _opponentPoints.emit(opponentSum)
+
             }.collect()
         }
     }
