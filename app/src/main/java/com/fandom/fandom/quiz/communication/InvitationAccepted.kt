@@ -7,4 +7,4 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-data class InvitationAccepted(val fromUserEntity: UserEntity, val forQuiz: String,val accepted:Boolean = false, override val type: CommunicationType = CommunicationType.ACCEPT_INVITATION) : Communication
+data class InvitationAccepted(val fromUserEntity: UserEntity, val forQuiz: Int,val accepted:Boolean = false, override val type: CommunicationType = CommunicationType.ACCEPT_INVITATION) : Communication

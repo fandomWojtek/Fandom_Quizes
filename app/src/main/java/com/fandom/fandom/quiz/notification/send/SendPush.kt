@@ -29,7 +29,7 @@ class SendPush(private val httpApiClient: HttpClient) {
         }
     }
 
-    suspend fun setGameAccepted(toUser: UserEntity, quizId: String) {
+    suspend fun setGameAccepted(toUser: UserEntity, quizId: Int) {
         val request = AppNotification(includeAliases = IncludeAliases(listOf(toUser.id)), customData = InvitationAccepted(toUser, quizId))
         httpApiClient.post {
             header("Authorization", restApiOneSignalKey)
