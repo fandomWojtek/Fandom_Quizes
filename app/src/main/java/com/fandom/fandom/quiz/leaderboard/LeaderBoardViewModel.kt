@@ -15,7 +15,7 @@ class LeaderBoardViewModel(private val usersDb: UsersDb) : ViewModel() {
 
     fun getAllPlayers() {
         viewModelScope.launch {
-            _allUsers.emit(usersDb.getAllUsers())
+            _allUsers.emit(usersDb.getAllUsers().sortedByDescending { it.points })
         }
     }
 

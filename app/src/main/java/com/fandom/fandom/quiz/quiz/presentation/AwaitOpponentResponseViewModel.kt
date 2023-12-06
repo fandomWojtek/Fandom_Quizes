@@ -32,15 +32,5 @@ class AwaitOpponentResponseViewModel(
             }.collect()
         }
 
-        viewModelScope.launch(Dispatchers.IO) {
-            val responses = (0 until 5).map {
-                QuestionResponse(it, Random.nextInt(30), Random.nextBoolean())
-            }
-
-            (0 until 5).forEach { 
-                delay(1500)
-                _opponentResponseState.emit(OpponentResponses(responses.take(it+1)))
-            }
-        }
     }
 }
