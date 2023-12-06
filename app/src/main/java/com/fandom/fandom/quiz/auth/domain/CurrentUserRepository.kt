@@ -8,7 +8,7 @@ import kotlinx.serialization.json.Json
 
 const val USER_KEY = "SOME_USER_KEY"
 
-class UserRepository(private var sharedPreferences: SharedPreferences, private val json: Json, val key: String = USER_KEY) {
+class CurrentUserRepository(private var sharedPreferences: SharedPreferences, private val json: Json, val key: String = USER_KEY) {
 
     suspend fun isUserLoggedIn() = sharedPreferences.contains(key)
 

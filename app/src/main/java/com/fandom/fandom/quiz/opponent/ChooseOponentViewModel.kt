@@ -2,7 +2,7 @@ package com.fandom.fandom.quiz.opponent
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.fandom.fandom.quiz.auth.domain.UserRepository
+import com.fandom.fandom.quiz.auth.domain.CurrentUserRepository
 import com.fandom.fandom.quiz.quiz.domain.CurrentQuizManager
 import com.fandom.fandom.quiz.remoteDb.UserEntity
 import com.fandom.fandom.quiz.remoteDb.UsersDb
@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 
 class ChooseOponentViewModel(
     private val usersDb: UsersDb,
-    private val userRepository: UserRepository,
+    private val userRepository: CurrentUserRepository,
     private val currentQuizManager: CurrentQuizManager,
     private val categoryId: String
 ) : ViewModel() {

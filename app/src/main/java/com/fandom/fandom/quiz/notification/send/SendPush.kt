@@ -1,14 +1,8 @@
 package com.fandom.fandom.quiz.notification.send
 
-import android.system.Os.accept
-import com.fandom.fandom.quiz.auth.domain.UserRepository
-import com.fandom.fandom.quiz.notification.send.InvitationAccepted
-import com.fandom.fandom.quiz.notification.send.Game
 import com.fandom.fandom.quiz.remoteDb.UserEntity
-import com.onesignal.OneSignal
 import io.ktor.client.HttpClient
 import io.ktor.client.request.*
-import io.ktor.client.utils.EmptyContent.contentType
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 
@@ -35,8 +29,8 @@ class SendPush(private val httpApiClient: HttpClient) {
         }
     }
 
-    suspend fun setGameAccepted(toUser: String, quizId: Int) {
-        val request = AppNotification(includeAliases = IncludeAliases(listOf(toUser)), customData = InvitationAccepted(toUser, quizId), appId = appId, targetChannel = channel)
+    suspend fun setGameAccepted(toUser: String, quizId: Int,accepted:Boolean = false) {
+        val request = AppNotification(includeAliases = IncludeAliases(listOf(toUser)), customData = InvitationAccepted(toUser, quizId,accepted = accepted), appId = appId, targetChannel = channel)
         httpApiClient.post(oneSignalUrl) {
             header("Authorization", restApiOneSignalKey)
             contentType(ContentType.Application.Json)

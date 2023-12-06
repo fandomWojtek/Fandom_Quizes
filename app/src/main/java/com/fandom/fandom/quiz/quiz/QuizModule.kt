@@ -11,5 +11,5 @@ val quizModule = module {
     factory { QuizRequestApi(get()) }
     factory { LoadQuizUseCase(get()) }
     single { CurrentQuizManager(get(),get(),get(),get()) }
-    viewModel{ AwaitQuizInvitationViewModel(get(),get()) }
+    viewModel{ AwaitQuizInvitationViewModel(get(),get(),get()) }
 }

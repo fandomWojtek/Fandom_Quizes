@@ -1,6 +1,6 @@
 package com.fandom.fandom.quiz.quiz.domain
 
-import com.fandom.fandom.quiz.auth.domain.UserRepository
+import com.fandom.fandom.quiz.auth.domain.CurrentUserRepository
 import com.fandom.fandom.quiz.categories.categoryList
 import com.fandom.fandom.quiz.communication.CommunicationManager
 import com.fandom.fandom.quiz.notification.send.Game
@@ -13,18 +13,18 @@ import kotlinx.coroutines.flow.*
 class CurrentQuizManager(
     private val loadQuizUseCase: LoadQuizUseCase,
     private val sendPush: SendPush,
-    private val userRepository: UserRepository,
+    private val userRepository: CurrentUserRepository,
     private val communicationManager: CommunicationManager
 ) {
 
     private val _currentQuizState: MutableStateFlow<Quiz?> = MutableStateFlow(null)
     val currentQuizState: StateFlow<Quiz?> = _currentQuizState
 
-    suspend fun loadQuizAndInviteUserToIt(userToInvite: UserEntity, siteId: String):Boolean {
+    suspend fun loadQuizAndInviteUserToIt(userToInvite: UserEntity, siteId: String): Boolean {
         val quiz = loadQuizUseCase.loadQuiz(siteId)
         val currentUser = userRepository.getCurrentUser()!!
         sendPush.sendInvitationToGame(userToInvite, Game(categoryList.find { it.id == siteId }!!.name, quiz.toQuizMetadata(), currentUser.id))
-        var accepted:Boolean = false
+        var accepted: Boolean = false
         communicationManager.acceptInvitation.takeWhile {
             accepted = it.accepted
             !(it.forQuiz == quiz.id && it.fromUserEntity == currentUser.id)
@@ -34,9 +34,16 @@ class CurrentQuizManager(
     }
 
     suspend fun acceptInvitationAndSendInfoThatYouAreReady(game: Game) = coroutineScope {
-        val quiz = loadQuizUseCase.loadQuiz(game.category)
+        val categoryId = categoryList.find { it.name == game.category }?.id ?: ""
+        val quiz = loadQuizUseCase.loadQuiz(categoryId)
         _currentQuizState.emit(quiz)
         userRepository.getCurrentUser()
-        sendPush.setGameAccepted(game.fromUser, game.quiz.quizId)
+        sendPush.setGameAccepted(game.fromUser, game.quiz.quizId, true)
+    }
+
+    suspend fun rejectInvitation(game: Game) = coroutineScope {
+        _currentQuizState.emit(null)
+        userRepository.getCurrentUser()
+        sendPush.setGameAccepted(game.fromUser, game.quiz.quizId, false)
     }
 }
