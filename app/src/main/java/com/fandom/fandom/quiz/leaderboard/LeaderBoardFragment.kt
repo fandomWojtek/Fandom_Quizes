@@ -21,6 +21,9 @@ class LeaderBoardFragment : Fragment(R.layout.fragment_leaderboard) {
         UserListAdapter()
     }
 
+    private val avatarsDrawable by lazy {
+        this.requireContext().avatars()
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         UpdateUserActivity(this)
         binding.users.adapter = adapter
@@ -29,6 +32,12 @@ class LeaderBoardFragment : Fragment(R.layout.fragment_leaderboard) {
         }
         safelyCollectFlow(viewModel.allUsers) {
             adapter.submitList(it)
+        }
+
+        safelyCollectFlow(viewModel.top3Users) {
+            it.user1?.let { binding.user1.setImageDrawable( avatarsDrawable[it.avatar]) }
+            it.user2?.let { binding.user2.setImageDrawable( avatarsDrawable[it.avatar]) }
+            it.user3?.let { binding.user3.setImageDrawable( avatarsDrawable[it.avatar]) }
         }
 
     }

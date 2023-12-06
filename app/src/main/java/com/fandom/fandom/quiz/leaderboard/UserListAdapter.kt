@@ -10,14 +10,15 @@ import com.bumptech.glide.Glide
 import com.fandom.fandom.quiz.R
 import com.fandom.fandom.quiz.databinding.ItemUserBinding
 import com.fandom.fandom.quiz.remoteDb.UserEntity
+import com.fandom.fandom.quiz.utils.avatars
 
 internal class UserListAdapter : ListAdapter<UserEntity, UsersListViewHolder>(object : DiffUtil.ItemCallback<UserEntity>() {
-        override fun areItemsTheSame(oldItem: UserEntity, newItem: UserEntity): Boolean =
-            oldItem.id == newItem.id
+    override fun areItemsTheSame(oldItem: UserEntity, newItem: UserEntity): Boolean =
+        oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItem: UserEntity, newItem: UserEntity): Boolean =
-            oldItem == newItem
-    }) {
+    override fun areContentsTheSame(oldItem: UserEntity, newItem: UserEntity): Boolean =
+        oldItem == newItem
+}) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UsersListViewHolder =
         UsersListViewHolder(
@@ -37,12 +38,13 @@ internal class UsersListViewHolder(
     private val binding: ItemUserBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    private val avatars = listOf(getDrawable(R.drawable.avatar01), getDrawable(R.drawable.avatar02), getDrawable(R.drawable.avatar03), getDrawable(R.drawable.avatar04))
+    private val avatars = binding.root.context.avatars()
 
     fun bind(user: UserEntity) {
         binding.userName.text = user.userName
+        binding.userPoints.text = user.points.toString()
         if (user.userPhoto.isEmpty()) {
-            binding.avatar.setImageDrawable(avatars.random())
+            binding.avatar.setImageDrawable(avatars[user.avatar])
         } else {
             user.userPhoto.isNotEmpty().let {
                 Glide.with(binding.avatar.context)

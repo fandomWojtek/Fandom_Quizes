@@ -7,9 +7,16 @@
 
     <style name="Text">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/brand_lead_colors_purple</item>
     </style>
     <style name="Text.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text.Middle">
+        <item name="android:textSize">18sp</item>
+    </style>
+    <style name="Text.Middle.Bold">
         <item name="android:textStyle">bold</item>
     </style>
     <style name="Text.Bigger">

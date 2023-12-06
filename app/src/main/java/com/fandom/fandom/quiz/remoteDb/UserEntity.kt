@@ -1,6 +1,7 @@
 package com.fandom.fandom.quiz.remoteDb
 
 import kotlinx.serialization.Serializable
+import kotlin.random.Random
 
 internal const val USERNAME = "userName"
 internal  const val USER_PHOTO = "userPhoto"
@@ -14,7 +15,8 @@ data class UserEntity(
     val userPhoto:String = "",
     val lastActive:Long = 0L,
     val id:String,
-    val points:Int = 0
+    val points:Int = 0,
+    val avatar:Int = Random.nextInt(4)
 ){
     fun mapOfElements() = mapOf(
         USERNAME to userName,
