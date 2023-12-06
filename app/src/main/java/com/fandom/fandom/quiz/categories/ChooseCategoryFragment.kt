@@ -9,9 +9,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.fandom.fandom.quiz.R
 import com.fandom.fandom.quiz.databinding.FragmentChooseCategoryBinding
+import com.fandom.fandom.quiz.utils.MoveInsetsHandler
 import com.fandom.fandom.quiz.utils.viewBinding
+import org.koin.android.ext.android.inject
 
 class ChooseCategoryFragment : Fragment(R.layout.fragment_choose_category) {
+
+    private val moveInsetsHandler: MoveInsetsHandler by inject()
 
     private val binding by viewBinding(FragmentChooseCategoryBinding::bind)
 
@@ -26,5 +30,15 @@ class ChooseCategoryFragment : Fragment(R.layout.fragment_choose_category) {
         }
         binding.chooseCategoryRecyclerView.adapter = adapter
         adapter.submitList(categoryList)
+    }
+
+    override fun onResume() {
+        moveInsetsHandler.handleInsetsToMoveUnderStatusBar(this)
+        super.onResume()
+    }
+
+    override fun onPause() {
+        moveInsetsHandler.handleInsetsToMoveToNormalPosition(this)
+        super.onPause()
     }
 }
