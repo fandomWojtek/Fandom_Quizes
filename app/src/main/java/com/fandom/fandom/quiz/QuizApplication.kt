@@ -6,6 +6,7 @@ import com.fandom.fandom.quiz.auth.authModule
 import com.fandom.fandom.quiz.landing.landingModule
 import com.fandom.fandom.quiz.leaderboard.leaderBoardModule
 import com.fandom.fandom.quiz.networking.networkModule
+import com.fandom.fandom.quiz.opponent.opponentModule
 import com.fandom.fandom.quiz.remoteDb.UsersDb
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -27,7 +28,7 @@ class QuizApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@QuizApplication)
-            modules(networkModule("url", true), authModule, appModule, landingModule, leaderBoardModule)
+            modules(networkModule("url", true), authModule, appModule, landingModule, leaderBoardModule, opponentModule)
         }
 
         // Verbose Logging set to help debug issues, remove before releasing your app.

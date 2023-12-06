@@ -6,6 +6,7 @@ internal const val USERNAME = "userName"
 internal  const val USER_PHOTO = "userPhoto"
 internal  const val LAST_ACTIVE = "lastActive"
 internal  const val POINTS = "points"
+private const val TIME_OF_MINUTE = 1000 * 60
 
 @Serializable
 data class UserEntity(
@@ -21,4 +22,6 @@ data class UserEntity(
         LAST_ACTIVE to lastActive,
         POINTS to points
     )
+
+    fun isActive(numberOfMinutes: Int = 5) = lastActive >= System.currentTimeMillis() - numberOfMinutes * TIME_OF_MINUTE
 }

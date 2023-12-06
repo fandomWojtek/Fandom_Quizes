@@ -5,7 +5,6 @@ import kotlinx.coroutines.tasks.await
 
 
 const val USERS_COLLECTION = "users"
-private const val TIME_OF_MINUTE = 1000 * 60
 
 class UsersDb(private val firestore: FirebaseFirestore) {
 
@@ -22,7 +21,7 @@ class UsersDb(private val firestore: FirebaseFirestore) {
     suspend fun addUser(user: UserEntity): UserEntity = user.copy(id = firestore.collection(USERS_COLLECTION).add(user.mapOfElements()).await().id)
 
     suspend fun getUserActiveInLastNMinutes(numberOfMinutes: Int = 5) = getAllUsers().filter {
-        it.lastActive >= System.currentTimeMillis() - numberOfMinutes * TIME_OF_MINUTE
+       it.isActive(numberOfMinutes)
     }
 
     suspend fun updateCurrentTimeStampForUser(id:String) {
