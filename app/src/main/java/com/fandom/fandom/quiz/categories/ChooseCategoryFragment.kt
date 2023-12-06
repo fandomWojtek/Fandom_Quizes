@@ -23,6 +23,9 @@ class ChooseCategoryFragment : Fragment(R.layout.fragment_choose_category) {
     private lateinit var adapter: CategoryAdapter
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         glide = Glide.with(this)
+        view.findViewById<View>(R.id.backButton).setOnClickListener {
+            findNavController().popBackStack()
+        }
         adapter = CategoryAdapter(glide) {
             findNavController().navigate(R.id.action_chooseCategoryFragmentNav_to_chooseOponentFragmentNav, Bundle().apply {
                 putString("categoryId", it.id)
