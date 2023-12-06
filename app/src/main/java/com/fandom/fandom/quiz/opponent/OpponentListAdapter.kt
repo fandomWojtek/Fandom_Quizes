@@ -11,7 +11,7 @@ import com.fandom.fandom.quiz.R
 import com.fandom.fandom.quiz.databinding.ItemOpponentBinding
 import com.fandom.fandom.quiz.remoteDb.UserEntity
 
-internal class OpponentListAdapter : ListAdapter<UserEntity, UsersListViewHolder>(object : DiffUtil.ItemCallback<UserEntity>() {
+internal class OpponentListAdapter(private val opponentChosen: (UserEntity) -> Unit) : ListAdapter<UserEntity, UsersListViewHolder>(object : DiffUtil.ItemCallback<UserEntity>() {
     override fun areItemsTheSame(oldItem: UserEntity, newItem: UserEntity): Boolean =
         oldItem.id == newItem.id
 
@@ -25,7 +25,8 @@ internal class OpponentListAdapter : ListAdapter<UserEntity, UsersListViewHolder
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ),
+            opponentChosen
         )
 
     override fun onBindViewHolder(holder: UsersListViewHolder, position: Int) {
@@ -34,13 +35,26 @@ internal class OpponentListAdapter : ListAdapter<UserEntity, UsersListViewHolder
 }
 
 internal class UsersListViewHolder(
-    private val binding: ItemOpponentBinding
+    private val binding: ItemOpponentBinding,
+    private val opponentChosen: (UserEntity) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
+    private var user: UserEntity? = null
+
+    init {
+        binding.playButton.setOnClickListener {
+            user?.let(opponentChosen)
+        }
+    }
+
     fun bind(user: UserEntity) {
+        this.user = user
         binding.userName.text = user.userName
-        val avatars = listOf(getDrawable(R.drawable.avatar01), getDrawable(R.drawable.avatar02), getDrawable(
-            R.drawable.avatar03), getDrawable(R.drawable.avatar04))
+        val avatars = listOf(
+            getDrawable(R.drawable.avatar01), getDrawable(R.drawable.avatar02), getDrawable(
+                R.drawable.avatar03
+            ), getDrawable(R.drawable.avatar04)
+        )
         if (user.userPhoto.isEmpty()) {
             binding.avatar.setImageDrawable(avatars.random())
         } else {

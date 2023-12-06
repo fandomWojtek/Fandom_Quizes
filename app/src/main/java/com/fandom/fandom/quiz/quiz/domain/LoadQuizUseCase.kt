@@ -6,6 +6,6 @@ class LoadQuizUseCase(private val quizRequestApi: QuizRequestApi) {
 
     suspend fun loadQuiz(siteId: String): Quiz {
         val random = quizRequestApi.getQuiz(siteId).quizzes.random()
-        return random.copy(questions = random.questions.filter { it.type== "text" }.take(10))
+        return random.copy(questions = random.questions.filter { it.type== "text" }.take(5))
     }
 }
