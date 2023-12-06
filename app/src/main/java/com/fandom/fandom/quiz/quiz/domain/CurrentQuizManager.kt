@@ -23,7 +23,7 @@ class CurrentQuizManager(
     suspend fun loadQuizAndInviteUserToIt(userToInvite: UserEntity, siteId: String) {
         val quiz = loadQuizUseCase.loadQuiz(siteId)
 
-        val currentUser = userRepository.getUser()!!
+        val currentUser = userRepository.getCurrentUser()!!
         sendPush.sendInvitationToGame(userToInvite, Game(categoryList.find { it.id == siteId }!!.name, quiz, currentUser))
         communicationManager.acceptInvitation.takeWhile { !(it.forQuiz == quiz.id && it.fromUserEntity.id == currentUser.id) }.collect()
     }

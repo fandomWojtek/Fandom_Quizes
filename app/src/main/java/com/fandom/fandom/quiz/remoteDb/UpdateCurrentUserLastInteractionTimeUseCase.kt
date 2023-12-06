@@ -4,7 +4,7 @@ import com.fandom.fandom.quiz.auth.domain.UserRepository
 
 class UpdateCurrentUserLastInteractionTimeUseCase(private val userRepository: UserRepository,private val usersDb: UsersDb) {
     suspend fun updateCurrentUserLastInteractionTime() {
-        val user = userRepository.getUser() ?: return
+        val user = userRepository.getCurrentUser() ?: return
         usersDb.updateCurrentTimeStampForUser(user.id)
     }
 }

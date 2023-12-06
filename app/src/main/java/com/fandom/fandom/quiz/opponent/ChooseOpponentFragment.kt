@@ -29,15 +29,33 @@ class ChooseOpponentFragment : Fragment(R.layout.fragment_choose_oponent) {
         viewModel.getOpponents()
         binding.opponents.adapter = adapter
         safelyCollectFlow(viewModel.activeUsers) {
-            adapter.submitList(it)
+            if (it.isEmpty()) {
+                updateView(showEmptyState = true)
+            } else {
+                updateView(showEmptyState = false)
+                adapter.submitList(it)
+            }
         }
-
         safelyCollectFlow(viewModel.waitForUserRespond){
 
+        }
+    }
+
+    private fun updateView(showEmptyState: Boolean) {
+        if (showEmptyState) {
+            binding.run {
+                emptyState.visibility = View.VISIBLE
+                opponents.visibility = View.GONE
+            }
+        } else {
+            binding.run {
+                emptyState.visibility = View.GONE
+                opponents.visibility = View.VISIBLE
+            }
         }
     }
 }
 
 val opponentModule = module {
-    viewModel { params -> ChooseOponentViewModel(get(), get(), params[0]) }
+    viewModel { params -> ChooseOponentViewModel(get(), get(),get(), params[0]) }
 }

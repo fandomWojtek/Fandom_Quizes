@@ -16,7 +16,7 @@ class UserRepository(private var sharedPreferences: SharedPreferences, private v
         sharedPreferences.edit().putString(key, json.encodeToString(user)).apply()
     }
 
-    suspend fun getUser(): UserEntity? {
+    suspend fun getCurrentUser(): UserEntity? {
         val user = sharedPreferences.getString(key, null)
         return if (user != null) json.decodeFromString(user) else null
     }
