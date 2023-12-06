@@ -5,8 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.fandom.fandom.quiz.quiz.api.Quiz
 import com.fandom.fandom.quiz.quiz.domain.CurrentQuizManager
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class QuizViewModel(private val currentQuizManager: CurrentQuizManager) : ViewModel() {
@@ -22,8 +21,11 @@ class QuizViewModel(private val currentQuizManager: CurrentQuizManager) : ViewMo
     private val _responses: MutableStateFlow<List<QuestionResponse>> = MutableStateFlow(emptyList())
     val responses: StateFlow<List<QuestionResponse>> = _responses
 
-    private val _goToNextQuestion: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    val goToNextQuestion: MutableStateFlow<Boolean> = _goToNextQuestion
+    private val _goToNextQuestion: MutableStateFlow<Int> = MutableStateFlow(0)
+    val goToNextQuestion: MutableStateFlow<Int> = _goToNextQuestion
+
+    private val _finishFlowOfQuiz: MutableSharedFlow<Unit> = MutableSharedFlow(replay = 0)
+    val finishFlowOfQuiz: SharedFlow<Unit> = _finishFlowOfQuiz
 
 
     fun getQuiz() {
@@ -34,7 +36,6 @@ class QuizViewModel(private val currentQuizManager: CurrentQuizManager) : ViewMo
 
     fun startTimer() {
         viewModelScope.launch {
-            _goToNextQuestion.emit(false)
             _startTime.emit(System.currentTimeMillis())
         }
     }
@@ -51,9 +52,13 @@ class QuizViewModel(private val currentQuizManager: CurrentQuizManager) : ViewMo
         val newResponses = currentResponses + response
         viewModelScope.launch {
             delay(800)
-            _goToNextQuestion.emit(true)
-            _responses.emit(newResponses)
             currentQuizManager.sendQuestionResponse(OpponentResponses(newResponses))
+            if (_goToNextQuestion.value + 1 == quiz.value?.questions?.size) {
+                _finishFlowOfQuiz.emit(Unit)
+            } else {
+                _goToNextQuestion.emit(_goToNextQuestion.value + 1)
+                _responses.emit(newResponses)
+            }
         }
     }
 }

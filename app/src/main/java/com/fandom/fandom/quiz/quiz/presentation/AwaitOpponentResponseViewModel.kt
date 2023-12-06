@@ -10,6 +10,8 @@ import kotlin.random.Random
 
 data class QuestionResponse(val number: Int, val time: Int, val correct: Boolean)
 data class OpponentResponses(val list: List<QuestionResponse>)
+
+data class QuizMetaData(val quizId: Int, val questionNumber: Int)
 class AwaitOpponentResponseViewModel(
     private val communicationManager: CommunicationManager,
     private val currentQuizManager: CurrentQuizManager
@@ -18,6 +20,9 @@ class AwaitOpponentResponseViewModel(
     private val _opponentResponseState: MutableStateFlow<OpponentResponses> = MutableStateFlow(OpponentResponses(emptyList()))
     val opponentResponseState: StateFlow<OpponentResponses> = _opponentResponseState
 
+
+    private val _quizMetaData: MutableSharedFlow<QuizMetaData> = MutableSharedFlow(replay = 1)
+    val quizMetaData: SharedFlow<QuizMetaData> = _quizMetaData
 
     init {
         viewModelScope.launch(Dispatchers.Default) {
@@ -32,5 +37,11 @@ class AwaitOpponentResponseViewModel(
             }.collect()
         }
 
+        viewModelScope.launch {
+            currentQuizManager.currentQuizState.filterNotNull().collect { quiz ->
+                _quizMetaData.emit(QuizMetaData(quiz.id, quiz.questions.size))
+            }
+        }
     }
+
 }

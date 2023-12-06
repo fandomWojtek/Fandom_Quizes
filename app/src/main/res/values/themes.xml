@@ -18,7 +18,17 @@
         <item name="android:editTextColor">@color/black</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textColorSecondary">@color/product_black</item>
+    </style>
 
+    <style name="ButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="shapeAppearanceOverlay">@style/ButtonStyleApp</item>
 
+    </style>
+    <style name="ButtonStyleApp">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50dp</item>
     </style>
 </resources>

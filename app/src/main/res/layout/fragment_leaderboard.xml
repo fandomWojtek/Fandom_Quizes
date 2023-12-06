@@ -98,13 +98,12 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/startQuizBattle"
-        style="@style/Widget.MaterialComponents.Button"
+        style="@style/ButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
         android:layout_margin="16dp"
-        android:text="Start Quiz Battle"
-        android:textColor="@color/white"
+        android:text="@string/start_quiz_battle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

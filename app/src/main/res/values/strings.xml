@@ -11,4 +11,5 @@
     <string name="opponent_progress">Thats guy is on fire !! Look out, not be leaved behind!!</string>
     <string name="choose_category">SELECT QUIZ CATEGORY</string>
     <string name="choose_opponent">SELECT COMPETITOR</string>
+    <string name="start_quiz_battle">START QUIZ BATTLE</string>
 </resources>
