@@ -5,23 +5,24 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.fandom.fandom.quiz.R
 import com.fandom.fandom.quiz.databinding.FragmentChooseOponentBinding
-import com.fandom.fandom.quiz.leaderboard.LeaderBoardViewModel
-import com.fandom.fandom.quiz.leaderboard.UserListAdapter
 import com.fandom.fandom.quiz.utils.safelyCollectFlow
 import com.fandom.fandom.quiz.utils.viewBinding
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
 
-class ChooseOpponentFragment:Fragment(R.layout.fragment_choose_oponent) {
-    val categoryId by lazy {
+class ChooseOpponentFragment : Fragment(R.layout.fragment_choose_oponent) {
+    private val categoryId by lazy {
         requireArguments().getString("categoryId")
     }
 
-    private val viewModel: ChooseOponentViewModel by viewModel()
+    private val viewModel: ChooseOponentViewModel by viewModel { parametersOf(categoryId) }
     val binding by viewBinding(FragmentChooseOponentBinding::bind)
     private val adapter by lazy {
-        OpponentListAdapter()
+        OpponentListAdapter {
+            viewModel.inviteUser(it)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,9 +31,13 @@ class ChooseOpponentFragment:Fragment(R.layout.fragment_choose_oponent) {
         safelyCollectFlow(viewModel.activeUsers) {
             adapter.submitList(it)
         }
+
+        safelyCollectFlow(viewModel.waitForUserRespond){
+
+        }
     }
 }
 
 val opponentModule = module {
-    viewModel { ChooseOponentViewModel(get()) }
+    viewModel { params -> ChooseOponentViewModel(get(), get(), params[0]) }
 }
