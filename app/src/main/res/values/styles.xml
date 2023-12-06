@@ -2,7 +2,8 @@
 <resources>
     <style name="roundedImageViewRounded">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">50%</item>
+        <item name="cornerSizeTopRight">@dimen/category_radius</item>
+        <item name="cornerSizeTopLeft">@dimen/category_radius</item>
     </style>
 
     <style name="Text">
@@ -25,4 +26,6 @@
     <style name="Text.Bold.Bigger">
         <item name="android:textSize">24sp</item>
     </style>
+
+    <dimen name="category_radius">24dp</dimen>
 </resources>
