@@ -26,10 +26,10 @@ class CommunicationManager(private val scope: CoroutineScope) {
         }
     }
 
-    private val _questionResponse: MutableSharedFlow<QuestionResponse> = MutableSharedFlow(replay = 0)
-    val questionResponse: SharedFlow<QuestionResponse> = _questionResponse
+    private val _questionResponse: MutableSharedFlow<SendQuestionResponse> = MutableSharedFlow(replay = 0)
+    val questionResponse: SharedFlow<SendQuestionResponse> = _questionResponse
 
-    fun questionResponse(questionResponse: QuestionResponse) {
+    fun questionResponse(questionResponse: SendQuestionResponse) {
         scope.launch {
             _questionResponse.emit(questionResponse)
         }

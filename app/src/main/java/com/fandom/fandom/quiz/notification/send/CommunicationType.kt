@@ -33,10 +33,9 @@ data class InvitationAccepted(
 data class QuizMetaData(val quizId: Int, val questions: List<String>)
 
 @Serializable
-data class QuestionResponse(
+data class SendQuestionResponse(
     val user1: String,
     val user2: String,
-    val questions: List<String>,
     val answers: List<Int>,//0,1
     val time: List<Int>,
     override val comType: CommunicationType = CommunicationType.QUESTION_RESPONSE

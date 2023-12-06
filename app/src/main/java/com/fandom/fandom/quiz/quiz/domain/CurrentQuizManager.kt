@@ -3,8 +3,7 @@ package com.fandom.fandom.quiz.quiz.domain
 import com.fandom.fandom.quiz.auth.domain.CurrentUserRepository
 import com.fandom.fandom.quiz.categories.categoryList
 import com.fandom.fandom.quiz.communication.CommunicationManager
-import com.fandom.fandom.quiz.notification.send.Game
-import com.fandom.fandom.quiz.notification.send.SendPush
+import com.fandom.fandom.quiz.notification.send.*
 import com.fandom.fandom.quiz.quiz.api.Quiz
 import com.fandom.fandom.quiz.quiz.presentation.OpponentResponses
 import com.fandom.fandom.quiz.remoteDb.UserEntity
@@ -24,6 +23,9 @@ class CurrentQuizManager(
     private val _isCurrentHost: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val isCurrentHost: StateFlow<Boolean> = _isCurrentHost
 
+    private val _currentOpponent: MutableStateFlow<String> = MutableStateFlow("")
+    val currentOpponent: StateFlow<String> = _currentOpponent
+
     suspend fun loadQuizAndInviteUserToIt(userToInvite: UserEntity, siteId: String): Boolean {
         val quiz = loadQuizUseCase.loadQuiz(siteId)
         val currentUser = userRepository.getCurrentUser()!!
@@ -35,6 +37,7 @@ class CurrentQuizManager(
         }.collect()
         _currentQuizState.emit(quiz)
         _isCurrentHost.emit(accepted)
+        if (accepted) _currentOpponent.emit(userToInvite.id) else _currentOpponent.emit("")
         return accepted
     }
 
@@ -53,9 +56,17 @@ class CurrentQuizManager(
         sendPush.setGameAccepted(game.fromUser, game.quiz.quizId, false)
     }
 
-    private val _currentOpponentResponses : MutableSharedFlow<OpponentResponses> = MutableSharedFlow(replay = 0 )
-    val currentOpponentResponses : SharedFlow<OpponentResponses> =  _currentOpponentResponses
+    private val _currentOpponentResponses: MutableSharedFlow<OpponentResponses> = MutableSharedFlow(replay = 0)
+    val currentOpponentResponses: SharedFlow<OpponentResponses> = _currentOpponentResponses
     suspend fun persistCurrentOpponentResponses(responses: OpponentResponses) {
         _currentOpponentResponses.emit(responses)
+    }
+
+
+    suspend fun sendQuestionResponse(questions: OpponentResponses) {
+        sendPush.sendQuestionResponse(
+            _currentOpponent.value,
+            SendQuestionResponse(userRepository.getCurrentUser()?.id ?: "", _currentOpponent.value, questions.list.map { if (it.correct) 1 else 0 }, questions.list.map { it.time })
+        )
     }
 }

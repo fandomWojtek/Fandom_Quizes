@@ -26,7 +26,7 @@ class NotificationServiceExtension : INotificationServiceExtension,KoinComponent
                     CommunicationType.START_GAME -> TODO()
                     CommunicationType.END_GAME -> TODO()
                     CommunicationType.QUESTION_RESPONSE -> {
-                        val accept = json.decodeFromString<QuestionResponse>(data.toString())
+                        val accept = json.decodeFromString<SendQuestionResponse>(data.toString())
                         notificationManager.questionResponse(accept)
                     }
                 }

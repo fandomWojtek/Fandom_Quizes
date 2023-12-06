@@ -39,6 +39,16 @@ class SendPush(private val httpApiClient: HttpClient) {
         }
     }
 
+    suspend fun sendQuestionResponse(toUser: String,questions: SendQuestionResponse) {
+        val request = AppNotification(includeAliases = IncludeAliases(listOf(toUser)), customData = questions, appId = appId, targetChannel = channel)
+        httpApiClient.post(oneSignalUrl) {
+            header("Authorization", restApiOneSignalKey)
+            contentType(ContentType.Application.Json)
+            accept(ContentType.Application.Json)
+            setBody(request)
+        }
+    }
+
 }
 
 
