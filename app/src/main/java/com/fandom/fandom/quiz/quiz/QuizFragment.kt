@@ -1,6 +1,7 @@
 package com.fandom.fandom.quiz.quiz
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import androidx.appcompat.content.res.AppCompatResources
@@ -9,11 +10,13 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.fandom.fandom.quiz.R
 import com.fandom.fandom.quiz.databinding.FragmentQuizBinding
 import com.fandom.fandom.quiz.quiz.presentation.AwaitOpponentResponseViewModel
 import com.fandom.fandom.quiz.quiz.presentation.OpponentResponses
+import com.fandom.fandom.quiz.quiz.presentation.QuizViewModel
 import com.fandom.fandom.quiz.utils.safelyCollectFlow
 import com.fandom.fandom.quiz.utils.viewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -24,14 +27,27 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
     private lateinit var viewPager: ViewPager2
 
     private val awaitOpponentResponseViewModel: AwaitOpponentResponseViewModel by viewModel()
+    internal val quizViewModel: QuizViewModel by viewModel()
     val binding by viewBinding(FragmentQuizBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         questionsAdapter = QuestionsAdapter(this)
         viewPager = view.findViewById(R.id.pager)
         viewPager.adapter = questionsAdapter
+        viewPager.isUserInputEnabled = false
         safelyCollectFlow(awaitOpponentResponseViewModel.opponentResponseState) {
             playWithOpponentResponses(it)
+        }
+
+        safelyCollectFlow(quizViewModel.goToNextQuestion) {
+            if(it) {
+                val newPosition = viewPager.currentItem + 1
+                viewPager.currentItem = newPosition
+                Log.e("QuizFragment", "new position ${newPosition}")
+                if (newPosition == 4) {
+                    findNavController().navigate(R.id.action_uizScreenNav_to_summaryFragmentNav)
+                }
+            }
         }
     }
 
