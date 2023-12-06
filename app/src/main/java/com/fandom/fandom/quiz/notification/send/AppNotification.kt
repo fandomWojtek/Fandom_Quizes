@@ -6,16 +6,16 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class AppNotification(
-    @SerialName("contents")
-    val contents: Contents = Contents("Basic message"),
-    @SerialName("custom_data")
+    @SerialName("data")
     val customData: Communication,
     @SerialName("include_aliases")
     val includeAliases: IncludeAliases,
     @SerialName("app_id")
     val appId: String ,
     @SerialName("target_channel")
-    val targetChannel: String
+    val targetChannel: String,
+    @SerialName("content_available")
+    val contentAv:Boolean = true
 )
 
 @Serializable

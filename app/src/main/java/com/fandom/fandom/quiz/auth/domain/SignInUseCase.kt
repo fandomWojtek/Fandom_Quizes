@@ -9,6 +9,6 @@ class SignInUseCase(private val usersDb: UsersDb, private val userRepository: Us
     suspend fun signIn(user: UserEntity) {
         val backendUser = usersDb.addUser(user)
         userRepository.saveUser(backendUser)
-        oneSignal.login(user.id)
+        oneSignal.login(backendUser.id)
     }
 }
