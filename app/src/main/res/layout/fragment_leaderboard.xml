@@ -1,31 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:fitsSystemWindows="true">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/expandedImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.7"
+                android:paddingTop="40dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fanfetti"
+                    android:src="@drawable/fanfetti"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/user1"
+                    android:layout_marginBottom="@dimen/half_podium_size"/>
+                <ImageView
+                    android:id="@+id/user1"
+                    android:layout_width="@dimen/podium_size"
+                    android:layout_height="@dimen/podium_size"
+                    app:layout_constraintBottom_toTopOf="@+id/podium"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:src="@drawable/avatar01"/>
+
+                <ImageView
+                    app:layout_constraintHorizontal_bias="0f"
+                    android:id="@+id/user2"
+                    android:layout_width="@dimen/podium_size"
+                    android:layout_height="@dimen/podium_size"
+                    app:layout_constraintTop_toTopOf="@+id/user1"
+                    android:layout_marginTop="40dp"
+                    app:layout_constraintStart_toStartOf="@+id/podium"
+                    app:layout_constraintEnd_toStartOf="@+id/user1"
+                    tools:src="@drawable/avatar01"/>
+                <ImageView
+                    app:layout_constraintHorizontal_bias="1.0f"
+                    android:id="@+id/user3"
+                    android:layout_width="@dimen/podium_size"
+                    android:layout_height="@dimen/podium_size"
+                    app:layout_constraintTop_toTopOf="@+id/user1"
+                    android:layout_marginTop="60dp"
+                    app:layout_constraintStart_toEndOf="@+id/user1"
+                    app:layout_constraintEnd_toEndOf="@+id/podium"
+                    tools:src="@drawable/avatar01"/>
+                <ImageView
+                    android:id="@+id/podium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:src="@drawable/podium"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/users"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_recycler_leaderboard"
         android:clipToPadding="true"
         android:paddingTop="16dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/startQuizBattle"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/item_user" />
 
+
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/startQuizBattle"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_gravity="center_horizontal|bottom"
         android:layout_margin="16dp"
+        android:text="Start Quiz Battle"
         android:textColor="@color/white"
-        android:id="@+id/startQuizBattle"
-        android:text="Start Quiz Battle"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
