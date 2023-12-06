@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fandom.fandom.quiz.quiz.api.Quiz
 import com.fandom.fandom.quiz.quiz.domain.CurrentQuizManager
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -45,11 +46,14 @@ class QuizViewModel(private val currentQuizManager: CurrentQuizManager) : ViewMo
     fun handleAnswer(isCorrect: Boolean, questionNumber: Int) {
         endTimer()
         val time = (endTime.value - startTime.value).toInt()
-        val response: QuestionResponse = QuestionResponse(questionNumber, time, isCorrect)
+        val response = QuestionResponse(questionNumber, time, isCorrect)
         val currentResponses = responses.value
+        val newResponses = currentResponses + response
         viewModelScope.launch {
+            delay(800)
             _goToNextQuestion.emit(true)
-            _responses.emit(currentResponses + response)
+            _responses.emit(newResponses)
+            currentQuizManager.sendQuestionResponse(OpponentResponses(newResponses))
         }
     }
 }
