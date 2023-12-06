@@ -2,6 +2,7 @@ package com.fandom.fandom.quiz.opponent
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.fandom.fandom.quiz.R
 import com.fandom.fandom.quiz.databinding.FragmentChooseOponentBinding
@@ -42,17 +43,8 @@ class ChooseOpponentFragment : Fragment(R.layout.fragment_choose_oponent) {
     }
 
     private fun updateView(showEmptyState: Boolean) {
-        if (showEmptyState) {
-            binding.run {
-                emptyState.visibility = View.VISIBLE
-                opponents.visibility = View.GONE
-            }
-        } else {
-            binding.run {
-                emptyState.visibility = View.GONE
-                opponents.visibility = View.VISIBLE
-            }
-        }
+        binding.emptyState.isVisible = showEmptyState
+        binding.opponents.isVisible = !showEmptyState
     }
 }
 
