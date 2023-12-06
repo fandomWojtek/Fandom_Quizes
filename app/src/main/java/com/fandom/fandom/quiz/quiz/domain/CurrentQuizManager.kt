@@ -43,16 +43,15 @@ class CurrentQuizManager(
 
     suspend fun acceptInvitationAndSendInfoThatYouAreReady(game: Game) = coroutineScope {
         val categoryId = categoryList.find { it.name == game.category }?.id ?: ""
-        val quiz = loadQuizUseCase.loadQuiz(categoryId)
+        val quiz = loadQuizUseCase.loadQuizWithQuestionIds(categoryId,game.quiz.quizId,game.quiz.questions)
         _currentQuizState.emit(quiz)
-        userRepository.getCurrentUser()
+        _currentOpponent.emit(game.fromUser)
         sendPush.setGameAccepted(game.fromUser, game.quiz.quizId, true)
         _isCurrentHost.emit(false)
     }
 
     suspend fun rejectInvitation(game: Game) = coroutineScope {
         _currentQuizState.emit(null)
-        userRepository.getCurrentUser()
         sendPush.setGameAccepted(game.fromUser, game.quiz.quizId, false)
     }
 
