@@ -1,7 +1,5 @@
 package com.fandom.fandom.quiz.notification.send
 
-import com.fandom.fandom.quiz.quiz.api.Quiz
-import com.fandom.fandom.quiz.remoteDb.UserEntity
 import kotlinx.serialization.Serializable
 
 enum class CommunicationType {
