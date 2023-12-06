@@ -5,8 +5,10 @@ import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
@@ -69,6 +71,7 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
                 }
             createdView.layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f)
             binding.progressOfTheOpponent.addView(createdView)
+            binding.opponentAvatar.updateLayoutParams<ConstraintLayout.LayoutParams> { horizontalBias = (index+1).toFloat()/5f }
         }
     }
 }

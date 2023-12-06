@@ -8,4 +8,5 @@
     <string name="accept">Accept</string>
     <string name="user_declined_invite">User has declined your invitation</string>
     <string name="would_you_like_to_play_with">"Would you like to accept challenge from %1$s to face knwoledge showdown in %2$s "</string>
+    <string name="opponent_progress">Thats guy is on fire !! Look out, not be leaved behind!!</string>
 </resources>

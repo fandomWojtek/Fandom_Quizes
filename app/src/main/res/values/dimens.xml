@@ -4,6 +4,7 @@
     <dimen name="opponentProgressHeight">40dp</dimen>
     <dimen name="normal_margin">16dp</dimen>
     <dimen name="big_margin">40dp</dimen>
-    <dimen name="small_user_avatar_dimen">40dp</dimen>
+    <dimen name="small_user_avatar_dimen">60dp</dimen>
     <dimen name="progress_height">35dp</dimen>
+    <dimen name="progress_height2dp">37dp</dimen>
 </resources>
