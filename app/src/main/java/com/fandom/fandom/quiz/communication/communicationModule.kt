@@ -6,5 +6,5 @@ import org.koin.dsl.module
 
 
 val communicationModule= module {
-    CommunicationManager(CoroutineScope(Dispatchers.Default))
+    single {  CommunicationManager(CoroutineScope(Dispatchers.Default))}
 }
