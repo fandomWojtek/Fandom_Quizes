@@ -14,7 +14,7 @@ data class Quiz(
     @SerialName("description")
     val description: String,
     @SerialName("id")
-    val id: String,
+    val id: Int,
     @SerialName("image")
     val image: String,
     @SerialName("questions")
