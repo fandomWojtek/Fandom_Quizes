@@ -37,9 +37,10 @@ internal class UsersListViewHolder(
     private val binding: ItemUserBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
+    private val avatars = listOf(getDrawable(R.drawable.avatar01), getDrawable(R.drawable.avatar02), getDrawable(R.drawable.avatar03), getDrawable(R.drawable.avatar04))
+
     fun bind(user: UserEntity) {
         binding.userName.text = user.userName
-        val avatars = listOf(getDrawable(R.drawable.avatar01), getDrawable(R.drawable.avatar02), getDrawable(R.drawable.avatar03), getDrawable(R.drawable.avatar04))
         if (user.userPhoto.isEmpty()) {
             binding.avatar.setImageDrawable(avatars.random())
         } else {

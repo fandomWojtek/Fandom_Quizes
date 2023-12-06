@@ -12,20 +12,17 @@
 
     <fragment
         android:id="@+id/landingScreenNav"
-        android:name="com.fandom.fandom.quiz.landing.LandingScreenFragment"
-        >
+        android:name="com.fandom.fandom.quiz.landing.LandingScreenFragment">
         <action
             android:id="@+id/action_landingScreenNav_to_authFragmentNav"
             app:destination="@id/authFragmentNav"
             app:popUpTo="@id/landingScreenNav"
-            app:popUpToInclusive="true"
-            />
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_landingScreenNav_to_leaderboardFragmentNav"
             app:destination="@id/leaderboardFragmentNav"
             app:popUpTo="@id/landingScreenNav"
-            app:popUpToInclusive="true"
-            />
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -35,18 +32,21 @@
         <action
             android:id="@+id/action_authFragmentNav_to_leaderboardFragmentNav"
             app:destination="@id/leaderboardFragmentNav"
-            app:popUpToInclusive="true"
-            app:popUpTo="@id/authFragmentNav" />
+            app:popUpTo="@id/authFragmentNav"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
-        app:popUpTo="@id/landingScreenNav"
-        app:popUpToInclusive="true"
         android:id="@+id/leaderboardFragmentNav"
-        android:name="com.fandom.fandom.quiz.leaderboard.LeaderBoardFragment">
+        android:name="com.fandom.fandom.quiz.leaderboard.LeaderBoardFragment"
+        app:popUpTo="@id/landingScreenNav"
+        app:popUpToInclusive="true">
         <action
             android:id="@+id/action_leaderboardFragmentNav_to_chooseCategoryFragmentNav"
             app:destination="@id/chooseCategoryFragmentNav" />
+        <action
+            android:id="@+id/action_leaderboardFragmentNav_to_quizScreenNav"
+            app:destination="@id/quizScreenNav" />
     </fragment>
 
     <fragment
@@ -63,5 +63,13 @@
         <argument
             android:name="categoryId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_chooseOponentFragmentNav_to_quizScreenNav"
+            app:destination="@id/quizScreenNav"
+            app:popUpTo="@id/leaderboardFragmentNav" />
     </fragment>
+
+    <fragment
+        android:id="@+id/quizScreenNav"
+        android:name="com.fandom.fandom.quiz.quiz.QuizFragment"></fragment>
 </navigation>
