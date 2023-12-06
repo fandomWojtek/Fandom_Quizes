@@ -39,6 +39,6 @@
         app:layout_constraintBottom_toBottomOf="@id/avatar"
         android:layout_margin="16dp"
         android:textColor="@color/white"
-        android:text="SPlay"/>
+        android:text="Play"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
