@@ -7,6 +7,7 @@ import com.fandom.fandom.quiz.communication.communicationModule
 import com.fandom.fandom.quiz.landing.landingModule
 import com.fandom.fandom.quiz.leaderboard.leaderBoardModule
 import com.fandom.fandom.quiz.networking.networkModule
+import com.fandom.fandom.quiz.notification.send.SendPush
 import com.fandom.fandom.quiz.quiz.quizModule
 import com.fandom.fandom.quiz.opponent.opponentModule
 import com.fandom.fandom.quiz.remoteDb.UpdateCurrentUserLastInteractionTimeUseCase
@@ -51,6 +52,7 @@ class QuizApplication : Application() {
 val appModule = module {
     single { OneSignal }
     single { UsersDb(Firebase.firestore) }
+    single { SendPush(get()) }
     factory { UpdateCurrentUserLastInteractionTimeUseCase(get(),get()) }
     single { androidApplication().getSharedPreferences("shared", Context.MODE_PRIVATE) }
 }
