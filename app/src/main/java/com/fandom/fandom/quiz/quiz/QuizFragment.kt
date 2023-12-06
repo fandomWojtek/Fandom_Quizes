@@ -12,6 +12,7 @@ import com.fandom.fandom.quiz.R
 import com.fandom.fandom.quiz.databinding.FragmentQuizBinding
 import com.fandom.fandom.quiz.quiz.presentation.AwaitOpponentResponseViewModel
 import com.fandom.fandom.quiz.quiz.presentation.OpponentResponses
+import com.fandom.fandom.quiz.quiz.presentation.QuizViewModel
 import com.fandom.fandom.quiz.utils.safelyCollectFlow
 import com.fandom.fandom.quiz.utils.viewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -22,14 +23,22 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
     private lateinit var viewPager: ViewPager2
 
     private val awaitOpponentResponseViewModel: AwaitOpponentResponseViewModel by viewModel()
+    internal val quizViewModel: QuizViewModel by viewModel()
     val binding by viewBinding(FragmentQuizBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         questionsAdapter = QuestionsAdapter(this)
         viewPager = view.findViewById(R.id.pager)
         viewPager.adapter = questionsAdapter
+        viewPager.isUserInputEnabled = false
         safelyCollectFlow(awaitOpponentResponseViewModel.opponentResponseState) {
             playWithOpponentResponses(it)
+        }
+
+        safelyCollectFlow(quizViewModel.goToNextQuestion) {
+            if(it) {
+                viewPager.currentItem = viewPager.currentItem + 1
+            }
         }
     }
 
