@@ -1,7 +1,6 @@
 package com.fandom.fandom.quiz.quiz
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.fandom.fandom.quiz.R
@@ -9,7 +8,6 @@ import com.fandom.fandom.quiz.databinding.QuestionFragmentBinding
 import com.fandom.fandom.quiz.quiz.presentation.QuizViewModel
 import com.fandom.fandom.quiz.utils.safelyCollectFlow
 import com.fandom.fandom.quiz.utils.viewBinding
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class QuestionFragment : Fragment(R.layout.question_fragment) {
 
@@ -35,11 +33,14 @@ class QuestionFragment : Fragment(R.layout.question_fragment) {
                     answer3.setOnClickListener { viewModel.handleAnswer(get(2).isCorrect, position) }
                     answer4.text = get(3).text
                     answer4.setOnClickListener { viewModel.handleAnswer(get(3).isCorrect, position) }
-
                 }
             }
-            viewModel.startTimer()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.startTimer()
     }
 
 }

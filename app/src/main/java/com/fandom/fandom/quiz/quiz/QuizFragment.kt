@@ -1,12 +1,14 @@
 package com.fandom.fandom.quiz.quiz
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.fandom.fandom.quiz.R
 import com.fandom.fandom.quiz.databinding.FragmentQuizBinding
@@ -37,7 +39,12 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
 
         safelyCollectFlow(quizViewModel.goToNextQuestion) {
             if(it) {
-                viewPager.currentItem = viewPager.currentItem + 1
+                val newPosition = viewPager.currentItem + 1
+                viewPager.currentItem = newPosition
+                Log.e("QuizFragment", "new position ${newPosition}")
+                if (newPosition == 4) {
+                    findNavController().navigate(R.id.action_uizScreenNav_to_summaryFragmentNav)
+                }
             }
         }
     }

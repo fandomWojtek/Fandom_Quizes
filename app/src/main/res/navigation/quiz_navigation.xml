@@ -74,5 +74,15 @@
         android:id="@+id/quizScreenNav"
         android:name="com.fandom.fandom.quiz.quiz.QuizFragment" >
 
+        <action
+            android:id="@+id/action_uizScreenNav_to_summaryFragmentNav"
+            app:destination="@id/summaryFragmentNav"
+            app:popUpTo="@id/leaderboardFragmentNav" />
+    </fragment>
+    <fragment
+        android:id="@+id/summaryFragmentNav"
+        android:name="com.fandom.fandom.quiz.summary.SummaryFragment" >
+
+
     </fragment>
 </navigation>
