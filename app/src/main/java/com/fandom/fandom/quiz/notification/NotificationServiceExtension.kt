@@ -3,6 +3,7 @@ package com.fandom.fandom.quiz.notification
 import com.fandom.fandom.quiz.notification.send.CommunicationType
 import com.fandom.fandom.quiz.game.Game
 import com.fandom.fandom.quiz.communication.CommunicationManager
+import com.fandom.fandom.quiz.communication.InvitationAccepted
 import com.onesignal.notifications.INotificationReceivedEvent
 import com.onesignal.notifications.INotificationServiceExtension
 import kotlinx.serialization.json.Json
@@ -21,7 +22,10 @@ class NotificationServiceExtension : INotificationServiceExtension,KoinComponent
                         val game = json.decodeFromString<Game>(data.toString())
                         notificationManager.receivedGameInvitation(game)
                     }
-                    CommunicationType.ACCEPT_INVITATION -> TODO()
+                    CommunicationType.ACCEPT_INVITATION -> {
+                        val accept = json.decodeFromString<InvitationAccepted>(data.toString())
+                        notificationManager.acceptInvitation(accept)
+                    }
                     CommunicationType.REJECT_INVITATION -> TODO()
                     CommunicationType.START_GAME -> TODO()
                     CommunicationType.END_GAME -> TODO()

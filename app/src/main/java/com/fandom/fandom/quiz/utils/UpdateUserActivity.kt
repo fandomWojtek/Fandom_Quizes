@@ -9,7 +9,7 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 
-class UpdateUserClass(val fragment: Fragment) : KoinComponent {
+class UpdateUserActivity(val fragment: Fragment) : KoinComponent {
     private val useCase: UpdateCurrentUserLastInteractionTimeUseCase by inject()
     private var job: Job? = null
 

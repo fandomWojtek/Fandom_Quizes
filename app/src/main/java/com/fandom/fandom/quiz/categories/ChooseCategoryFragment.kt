@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.fandom.fandom.quiz.R
@@ -19,7 +20,9 @@ class ChooseCategoryFragment : Fragment(R.layout.fragment_choose_category) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         glide = Glide.with(this)
         adapter = CategoryAdapter(glide) {
-            Toast.makeText(requireContext(), it.name, Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_chooseCategoryFragmentNav_to_chooseOponentFragmentNav, Bundle().apply {
+                putString("categoryId", it.id)
+            })
         }
         binding.chooseCategoryRecyclerView.adapter = adapter
         adapter.submitList(categoryList)

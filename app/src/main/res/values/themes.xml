@@ -8,7 +8,7 @@
     </style>
 
 
-    <style name="BaseAppTheme" parent="Theme.MaterialComponents.DayNight">
+    <style name="BaseAppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:windowBackground">@color/white</item>
         <item name="colorPrimary">@color/product_light_theme_text_link</item>
         <item name="colorPrimaryDark">@color/brand_lead_colors_purple</item>
