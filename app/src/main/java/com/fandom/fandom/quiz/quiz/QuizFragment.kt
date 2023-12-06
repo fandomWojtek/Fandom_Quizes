@@ -40,14 +40,15 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
         }
 
         safelyCollectFlow(quizViewModel.goToNextQuestion) {
-            if(it) {
-                val newPosition = viewPager.currentItem + 1
-                viewPager.currentItem = newPosition
-                Log.e("QuizFragment", "new position ${newPosition}")
-                if (newPosition == 4) {
-                    findNavController().navigate(R.id.action_uizScreenNav_to_summaryFragmentNav)
-                }
-            }
+            viewPager.currentItem = it
+        }
+
+        safelyCollectFlow(quizViewModel.finishFlowOfQuiz){
+            findNavController().navigate(R.id.action_uizScreenNav_to_summaryFragmentNav)
+        }
+
+        safelyCollectFlow(awaitOpponentResponseViewModel.quizMetaData) {
+            binding.progressOfTheOpponent.weightSum = it.questionNumber.toFloat()
         }
     }
 
@@ -71,7 +72,7 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
                 }
             createdView.layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f)
             binding.progressOfTheOpponent.addView(createdView)
-            binding.opponentAvatar.updateLayoutParams<ConstraintLayout.LayoutParams> { horizontalBias = (index+1).toFloat()/5f }
+            binding.opponentAvatar.updateLayoutParams<ConstraintLayout.LayoutParams> { horizontalBias = (index + 1).toFloat() / 5f }
         }
     }
 }
