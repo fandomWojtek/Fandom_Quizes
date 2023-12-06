@@ -2,12 +2,14 @@ package com.fandom.fandom.quiz.opponent
 
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.fandom.fandom.quiz.R
 import com.fandom.fandom.quiz.databinding.FragmentChooseOponentBinding
 import com.fandom.fandom.quiz.utils.*
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -18,6 +20,7 @@ class ChooseOpponentFragment : Fragment(R.layout.fragment_choose_oponent) {
         requireArguments().getString("categoryId")
     }
 
+    private val moveInsetsHandler: MoveInsetsHandler by inject()
     private val viewModel: ChooseOponentViewModel by viewModel { parametersOf(categoryId) }
     val binding by viewBinding(FragmentChooseOponentBinding::bind)
     private val adapter by lazy {
@@ -29,6 +32,10 @@ class ChooseOpponentFragment : Fragment(R.layout.fragment_choose_oponent) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.getOpponents()
         binding.opponents.adapter = adapter
+        view.findViewById<View>(R.id.backButton).setOnClickListener {
+            findNavController().popBackStack()
+        }
+        view.findViewById<TextView>(R.id.toolbarTitle).text = getString(R.string.choose_opponent)
         safelyCollectFlow(viewModel.activeUsers) {
             if (it.isEmpty()) {
                 updateView(showEmptyState = true)
@@ -51,6 +58,16 @@ class ChooseOpponentFragment : Fragment(R.layout.fragment_choose_oponent) {
     private fun updateView(showEmptyState: Boolean) {
         binding.emptyState.isVisible = showEmptyState
         binding.opponents.isVisible = !showEmptyState
+    }
+
+    override fun onResume() {
+        moveInsetsHandler.handleInsetsToMoveUnderStatusBar(this)
+        super.onResume()
+    }
+
+    override fun onPause() {
+        moveInsetsHandler.handleInsetsToMoveToNormalPosition(this)
+        super.onPause()
     }
 }
 

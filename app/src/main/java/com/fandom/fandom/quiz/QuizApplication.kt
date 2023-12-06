@@ -12,6 +12,8 @@ import com.fandom.fandom.quiz.quiz.quizModule
 import com.fandom.fandom.quiz.opponent.opponentModule
 import com.fandom.fandom.quiz.remoteDb.UpdateCurrentUserLastInteractionTimeUseCase
 import com.fandom.fandom.quiz.remoteDb.UsersDb
+import com.fandom.fandom.quiz.utils.MoveInsetsHandler
+import com.fandom.fandom.quiz.utils.StatusBarHeightUtil
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.onesignal.OneSignal
@@ -50,6 +52,8 @@ class QuizApplication : Application() {
 }
 
 val appModule = module {
+    single { MoveInsetsHandler(get()) }
+    single { StatusBarHeightUtil() }
     single { OneSignal }
     single { UsersDb(Firebase.firestore) }
     single { SendPush(get()) }

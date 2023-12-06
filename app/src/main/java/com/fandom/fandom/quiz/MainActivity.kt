@@ -9,12 +9,13 @@ import androidx.navigation.fragment.NavHostFragment
 import com.fandom.fandom.quiz.databinding.MainActivityBinding
 import com.fandom.fandom.quiz.quiz.presentation.AwaitQuizInvitationViewModel
 import com.fandom.fandom.quiz.utils.*
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity(R.layout.main_activity) {
 
     private val binding by viewBinding(MainActivityBinding::inflate)
-
+    private val statusBarHeightUtil: StatusBarHeightUtil by inject()
 
     private val navController: NavController
         get() = Navigation.findNavController(binding.quizNavHost)
@@ -22,7 +23,7 @@ class MainActivity : AppCompatActivity(R.layout.main_activity) {
     private val awaitViewModel: AwaitQuizInvitationViewModel by viewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        statusBarHeightUtil.setUp(this)
         if (supportFragmentManager.findFragmentByTag(NavHostFragment::class.java.name) == null) {
             val finalHost = NavHostFragment.create(R.navigation.quiz_navigation)
             supportFragmentManager.beginTransaction()
