@@ -25,6 +25,9 @@ class ChooseOponentViewModel(
     private val _goToQuiz: MutableSharedFlow<Unit> = MutableSharedFlow(replay = 0)
     val goToQuiz: SharedFlow<Unit> = _goToQuiz
 
+    private val _userDeclinedYourInvite: MutableSharedFlow<Unit> = MutableSharedFlow(replay = 0)
+    val userDeclinedYourInvite: SharedFlow<Unit> = _userDeclinedYourInvite
+
     fun getOpponents() {
         viewModelScope.launch {
             val currentUserId = userRepository.getCurrentUser()?.id
@@ -36,9 +39,13 @@ class ChooseOponentViewModel(
     fun inviteUser(user: UserEntity) {
         viewModelScope.launch {
             _waitForUserResponded.emit(true)
-            currentQuizManager.loadQuizAndInviteUserToIt(user, categoryId)
+            val accepted = currentQuizManager.loadQuizAndInviteUserToIt(user, categoryId)
             _waitForUserResponded.emit(false)
-            _goToQuiz.emit(Unit)
+            if (accepted) {
+                _goToQuiz.emit(Unit)
+            } else {
+                _userDeclinedYourInvite.emit(Unit)
+            }
         }
     }
 

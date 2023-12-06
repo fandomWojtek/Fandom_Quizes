@@ -30,13 +30,16 @@
         tools:listitem="@layout/item_opponent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/waitingView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="#88000000" >
+        tools:visibility="visible"
+        android:background="#DD000000" >
         <TextView
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -44,7 +47,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/waiting_for_opponent"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:id="@+id/opponentText"
             />
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:layout_marginTop="20dp"
+            android:id="@+id/progressBar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/opponentText"
+            android:layout_width="60dp"
+            android:layout_height="60dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

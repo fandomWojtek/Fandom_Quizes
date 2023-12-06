@@ -20,12 +20,17 @@ class CurrentQuizManager(
     private val _currentQuizState: MutableStateFlow<Quiz?> = MutableStateFlow(null)
     val currentQuizState: StateFlow<Quiz?> = _currentQuizState
 
-    suspend fun loadQuizAndInviteUserToIt(userToInvite: UserEntity, siteId: String) {
+    suspend fun loadQuizAndInviteUserToIt(userToInvite: UserEntity, siteId: String):Boolean {
         val quiz = loadQuizUseCase.loadQuiz(siteId)
 
         val currentUser = userRepository.getCurrentUser()!!
         sendPush.sendInvitationToGame(userToInvite, Game(categoryList.find { it.id == siteId }!!.name, quiz, currentUser))
-        communicationManager.acceptInvitation.takeWhile { !(it.forQuiz == quiz.id && it.fromUserEntity.id == currentUser.id) }.collect()
+        var accepted:Boolean = false
+        communicationManager.acceptInvitation.takeWhile {
+            accepted = it.accepted
+            !(it.forQuiz == quiz.id && it.fromUserEntity.id == currentUser.id)
+        }.collect()
+        return accepted
     }
 
     suspend fun acceptInvitationAndSendInfoThatYouAreReady(game: Game) = coroutineScope {

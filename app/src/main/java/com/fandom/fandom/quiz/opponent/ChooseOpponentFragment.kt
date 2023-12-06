@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.fandom.fandom.quiz.R
 import com.fandom.fandom.quiz.databinding.FragmentChooseOponentBinding
-import com.fandom.fandom.quiz.utils.safelyCollectFlow
-import com.fandom.fandom.quiz.utils.viewBinding
+import com.fandom.fandom.quiz.utils.*
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -38,7 +38,13 @@ class ChooseOpponentFragment : Fragment(R.layout.fragment_choose_oponent) {
             }
         }
         safelyCollectFlow(viewModel.waitForUserRespond){
-
+            binding.waitingView.isVisible = it
+        }
+        safelyCollectFlow(viewModel.goToQuiz){
+            findNavController().navigate(R.id.action_chooseOponentFragmentNav_to_quizScreenNav)
+        }
+        safelyCollectFlow(viewModel.userDeclinedYourInvite){
+            showSimpleDialog(getString(R.string.user_declined_invite))
         }
     }
 
