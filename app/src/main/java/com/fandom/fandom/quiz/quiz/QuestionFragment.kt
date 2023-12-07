@@ -3,6 +3,7 @@ package com.fandom.fandom.quiz.quiz
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import com.fandom.fandom.quiz.R
 import com.fandom.fandom.quiz.databinding.QuestionFragmentBinding
@@ -17,7 +18,7 @@ class QuestionFragment : Fragment(R.layout.question_fragment) {
         requireArguments().getInt(CURRENT_POSITION)
     }
 
-    private val viewModel: QuizViewModel by lazy {(requireParentFragment() as QuizFragment).quizViewModel}
+    private val viewModel: QuizViewModel by lazy { (requireParentFragment() as QuizFragment).quizViewModel }
     val binding by viewBinding(QuestionFragmentBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -25,16 +26,14 @@ class QuestionFragment : Fragment(R.layout.question_fragment) {
         safelyCollectFlow(viewModel.quiz) {
             val quizQuestion = it?.questions?.get(position)
             binding.run {
+                val buttons = listOf(answer1, answer2, answer3, answer4)
+                buttons.forEach { buton -> buton.isGone = true }
                 question.text = quizQuestion?.text
-                quizQuestion?.answers?.run {
-                    answer1.text = get(0).text
-                    answer1.setOnClickListener { onClick(answer1, get(0)) }
-                    answer2.text = get(1).text
-                    answer2.setOnClickListener { onClick(answer2, get(1)) }
-                    answer3.text = get(2).text
-                    answer3.setOnClickListener { onClick(answer3, get(2))  }
-                    answer4.text = get(3).text
-                    answer4.setOnClickListener { onClick(answer4, get(3))  }
+                val answers = quizQuestion?.answers ?: emptyList()
+                answers.indices.forEach { index ->
+                    buttons[index].visibility = View.VISIBLE
+                    buttons[index].text = answers[index].text
+                    answer1.setOnClickListener { onClick(answer1, answers[index]) }
                 }
             }
         }
@@ -47,7 +46,7 @@ class QuestionFragment : Fragment(R.layout.question_fragment) {
 
     private fun onClick(view: View, answer: Answer) {
         viewModel.handleAnswer(answer.isCorrect, position)
-        if(answer.isCorrect) {
+        if (answer.isCorrect) {
             view.setBackgroundColor(resources.getColor(R.color.correct_answer))
         } else {
             view.setBackgroundColor(resources.getColor(R.color.wrong_answer))
