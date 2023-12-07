@@ -61,7 +61,7 @@ val categoryList = listOf(
         "458381",
         "https://static.wikia.nocookie.net/baldursgategame/images/b/bc/Wikia-Visualization-Main%2Cbaldursgategame.png/revision/latest/thumbnail/width/400/height/400?cb=20161102154210"
     ),
-    Category("The Office", "1573", ""),
+    Category("The Office", "1573", "https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p185008_b_h9_ai.jpg"),
     Category(
         "Rick and Morty",
         "881799",
