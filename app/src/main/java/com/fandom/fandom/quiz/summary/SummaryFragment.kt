@@ -24,7 +24,7 @@ class SummaryFragment : Fragment(R.layout.fragment_summary) {
         binding.run {
             startAnimation(vs, 1)
             startAnimation(finishButton, 1)
-            finishButton.setOnClickListener { findNavController().navigate(R.id.action_summaryFragmentNav_to_leaderboardFragmentNav) }
+            finishButton.setOnClickListener { findNavController().popBackStack() }
         }
 
         safelyCollectFlow(viewModel.opponentData) {
