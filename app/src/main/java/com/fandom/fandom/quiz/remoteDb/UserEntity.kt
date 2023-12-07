@@ -16,7 +16,7 @@ data class UserEntity(
     val lastActive:Long = 0L,
     val id:String,
     val points:Int = 0,
-    val avatar:Int = Random.nextInt(4)
+    val avatar:Int = Random.nextInt(12)
 ){
     fun mapOfElements() = mapOf(
         USERNAME to userName,
