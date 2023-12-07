@@ -2,6 +2,7 @@ package com.fandom.fandom.quiz.summary
 
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.fandom.fandom.quiz.R
@@ -24,6 +25,9 @@ class SummaryFragment : Fragment(R.layout.fragment_summary) {
                 binding.run {
                     opponentUserName.text = it.userName
                     opponentAvatar.setImageDrawable(ContextCompat.getDrawable(opponentAvatar.context, R.drawable.avatar01))
+                    startAnimation(opponentAvatar, 1)
+                    startAnimation(opponentUserName, 2)
+                    startAnimation(opponentPoints, 3)
                 }
             }
         }
@@ -33,6 +37,9 @@ class SummaryFragment : Fragment(R.layout.fragment_summary) {
                 binding.run {
                     hostUserName.text = it.userName
                     hostAvatar.setImageDrawable(ContextCompat.getDrawable(opponentAvatar.context, R.drawable.avatar02))
+                    startAnimation(hostAvatar, 1)
+                    startAnimation(hostUserName, 2)
+                    startAnimation(hostPoints, 3)
                 }
             }
         }
@@ -44,5 +51,11 @@ class SummaryFragment : Fragment(R.layout.fragment_summary) {
         safelyCollectFlow(viewModel.opponentPoints) {
             binding.opponentPoints.text = it.toString()
         }
+    }
+
+    private fun startAnimation(view: View, delay: Long) {
+        val slideDown = AnimationUtils.loadAnimation(binding.opponentAvatar.context, R.anim.slide_down)
+        slideDown.startOffset = delay * 500
+        view.startAnimation(slideDown)
     }
 }
