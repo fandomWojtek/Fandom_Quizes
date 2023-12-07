@@ -6,6 +6,12 @@
         <item name="cornerSizeTopLeft">@dimen/category_radius</item>
     </style>
 
+    <style name="roundedImageViewRoundedWhiteStoke">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+
+    </style>
+
     <style name="Text">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/brand_lead_colors_purple</item>

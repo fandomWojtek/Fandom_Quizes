@@ -1,15 +1,16 @@
 package com.fandom.fandom.quiz.quiz
 
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.animation.addPauseListener
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
-import androidx.core.view.isVisible
-import androidx.core.view.updateLayoutParams
+import androidx.core.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
@@ -30,8 +31,13 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
     private val awaitOpponentResponseViewModel: AwaitOpponentResponseViewModel by viewModel()
     internal val quizViewModel: QuizViewModel by viewModel()
     val binding by viewBinding(FragmentQuizBinding::bind)
-
+    val DURATION: Long = 1000*60
+    lateinit var animator1: ObjectAnimator
+    lateinit var animator2: ObjectAnimator
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        adjustAnimators()
+
+
         questionsAdapter = QuestionsAdapter(this)
         viewPager = view.findViewById(R.id.pager)
         viewPager.adapter = questionsAdapter
@@ -56,6 +62,30 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
         }
     }
 
+    private fun adjustAnimators() {
+        animator1 = ObjectAnimator.ofInt(binding.flameScroll, "scrollX", 0, binding.flameScroll[0].width - binding.flameScroll.width).apply {
+            repeatMode = ObjectAnimator.REVERSE
+            repeatCount = ObjectAnimator.INFINITE
+            duration = DURATION
+            start()
+        }
+        animator2 = ObjectAnimator.ofInt(binding.secondFlameScroll, "scrollX", 0, binding.secondFlameScroll[0].width - binding.secondFlameScroll.width).apply {
+            repeatMode = ObjectAnimator.REVERSE
+            repeatCount = ObjectAnimator.INFINITE
+            duration = DURATION*2
+            start()
+        }
+        animator1.addUpdateListener {
+            android.util.Log.e("TAG", "adjustAnimators: $it" )
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        animator1.cancel()
+        animator2.cancel()
+    }
+
     private fun playWithOpponentResponses(it: OpponentResponses) {
         binding.progressOfTheOpponent.removeAllViews()
         it.list.indices.map { index ->
@@ -76,7 +106,16 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
                 }
             createdView.layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f)
             binding.progressOfTheOpponent.addView(createdView)
-            binding.opponentAvatar.updateLayoutParams<ConstraintLayout.LayoutParams> { horizontalBias = (index + 1).toFloat() / 5f }
+            val positionOfFlame = (index + 1).toFloat() / (try {
+                awaitOpponentResponseViewModel.quizMetaData.replayCache.last().questionNumber.toFloat()
+            } catch (ex: Exception) {
+                5f
+            })*0.8f
+            binding.flameScroll.updateLayoutParams<ConstraintLayout.LayoutParams> { matchConstraintPercentWidth = positionOfFlame }
+            binding.secondFlameScroll.updateLayoutParams<ConstraintLayout.LayoutParams> { matchConstraintPercentWidth = positionOfFlame }
+            animator1.cancel()
+            animator2.cancel()
+            adjustAnimators()
         }
     }
 }
