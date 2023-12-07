@@ -5,6 +5,7 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.fandom.fandom.quiz.R
 import com.fandom.fandom.quiz.databinding.FragmentSummaryBinding
 import com.fandom.fandom.quiz.utils.safelyCollectFlow
@@ -19,6 +20,12 @@ class SummaryFragment : Fragment(R.layout.fragment_summary) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.getUsersData()
         viewModel.summarizeTheQuiz()
+
+        binding.run {
+            startAnimation(vs, 1)
+            startAnimation(finishButton, 1)
+            finishButton.setOnClickListener { findNavController().navigate(R.id.action_summaryFragmentNav_to_leaderboardFragmentNav) }
+        }
 
         safelyCollectFlow(viewModel.opponentData) {
             it?.let {

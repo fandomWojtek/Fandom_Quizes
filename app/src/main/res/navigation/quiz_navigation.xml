@@ -83,6 +83,9 @@
         android:id="@+id/summaryFragmentNav"
         android:name="com.fandom.fandom.quiz.summary.SummaryFragment" >
 
-
+        <action
+            android:id="@+id/action_summaryFragmentNav_to_leaderboardFragmentNav"
+            app:destination="@id/leaderboardFragmentNav"
+            app:popUpTo="@id/leaderboardFragmentNav" />
     </fragment>
 </navigation>
