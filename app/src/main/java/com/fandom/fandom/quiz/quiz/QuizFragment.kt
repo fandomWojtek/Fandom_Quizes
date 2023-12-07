@@ -61,6 +61,10 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
         safelyCollectFlow(quizViewModel.waitingForYourOpponentToFinish) {
             binding.watingForOpponent.isVisible = true
         }
+
+        safelyCollectFlow(awaitOpponentResponseViewModel.currentOpponentName){
+            binding.yourOpponentProgress.text = getString(R.string.opponent_progress,it)
+        }
     }
 
     private fun adjustAnimators() {

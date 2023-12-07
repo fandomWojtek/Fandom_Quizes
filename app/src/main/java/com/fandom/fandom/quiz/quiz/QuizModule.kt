@@ -14,6 +14,6 @@ val quizModule = module {
     single { CurrentQuizManager(get(), get(), get(), get()) }
     viewModel { AwaitQuizInvitationViewModel(get(), get(), get()) }
     viewModel { QuizViewModel(get()) }
-    viewModel { AwaitOpponentResponseViewModel(get(), get()) }
+    viewModel { AwaitOpponentResponseViewModel(get(), get(),get()) }
     viewModel { SummaryViewModel(get(), get(), get(), get()) }
 }

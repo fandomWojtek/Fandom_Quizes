@@ -3,7 +3,9 @@ package com.fandom.fandom.quiz.quiz.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fandom.fandom.quiz.communication.CommunicationManager
+import com.fandom.fandom.quiz.quiz.api.Quiz
 import com.fandom.fandom.quiz.quiz.domain.CurrentQuizManager
+import com.fandom.fandom.quiz.remoteDb.UsersDb
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlin.random.Random
@@ -14,7 +16,8 @@ data class OpponentResponses(val list: List<QuestionResponse>)
 data class QuizMetaData(val quizId: Int, val questionNumber: Int)
 class AwaitOpponentResponseViewModel(
     private val communicationManager: CommunicationManager,
-    private val currentQuizManager: CurrentQuizManager
+    private val currentQuizManager: CurrentQuizManager,
+    private val usersDb: UsersDb
 ) : ViewModel() {
 
     private val _opponentResponseState: MutableStateFlow<OpponentResponses> = MutableStateFlow(OpponentResponses(emptyList()))
@@ -23,6 +26,9 @@ class AwaitOpponentResponseViewModel(
 
     private val _quizMetaData: MutableSharedFlow<QuizMetaData> = MutableSharedFlow(replay = 1)
     val quizMetaData: SharedFlow<QuizMetaData> = _quizMetaData
+
+    private val _currentOpponentName: MutableStateFlow<String> = MutableStateFlow("")
+    val currentOpponentName: StateFlow<String> = _currentOpponentName
 
     init {
         viewModelScope.launch(Dispatchers.Default) {
@@ -40,6 +46,12 @@ class AwaitOpponentResponseViewModel(
         viewModelScope.launch {
             currentQuizManager.currentQuizState.filterNotNull().collect { quiz ->
                 _quizMetaData.emit(QuizMetaData(quiz.id, quiz.questions.size))
+            }
+        }
+        viewModelScope.launch {
+            currentQuizManager.currentOpponent.filter { it.isNotEmpty() }.collect { opponent ->
+                usersDb.getUserById(opponent)?.let { _currentOpponentName.emit(it.userName) }
+
             }
         }
     }

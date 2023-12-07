@@ -33,7 +33,7 @@ class QuestionFragment : Fragment(R.layout.question_fragment) {
                 answers.indices.forEach { index ->
                     buttons[index].visibility = View.VISIBLE
                     buttons[index].text = answers[index].text
-                    buttons[index].setOnClickListener { onClick(answer1, answers[index]) }
+                    buttons[index].setOnClickListener { onClick(buttons[index], answers[index]) }
                 }
             }
         }
