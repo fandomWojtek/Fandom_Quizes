@@ -44,6 +44,7 @@ class CurrentQuizManager(
     }
 
     suspend fun acceptInvitationAndSendInfoThatYouAreReady(game: Game) = coroutineScope {
+        clearCurrentQuiz()
         val categoryId = categoryList.find { it.name == game.category }?.id ?: ""
         val quiz = loadQuizUseCase.loadQuizWithQuestionIds(categoryId, game.quiz.quizId, game.quiz.questions)
         _currentQuizState.emit(quiz)
