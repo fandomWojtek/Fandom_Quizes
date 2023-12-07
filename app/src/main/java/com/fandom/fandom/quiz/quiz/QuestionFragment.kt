@@ -29,7 +29,7 @@ class QuestionFragment : Fragment(R.layout.question_fragment) {
                 val buttons = listOf(answer1, answer2, answer3, answer4)
                 buttons.forEach { buton -> buton.isGone = true }
                 question.text = quizQuestion?.text
-                val answers = quizQuestion?.answers ?: emptyList()
+                val answers = (quizQuestion?.answers ?: emptyList()).shuffled()
                 questionCounter.text = getString(R.string.question_counter, position+1, it?.questions?.size)
                 answers.indices.forEach { index ->
                     buttons[index].visibility = View.VISIBLE
