@@ -1,13 +1,14 @@
 <resources>
-    <string name="app_name">Fandom Quizes</string>
+    <string name="app_name">Fandom Quizzes</string>
     <string name="sign_in">Sign in</string>
     <string name="play">Play</string>
     <string name="no_active_users">No active users to play with</string>
     <string name="waiting_for_opponent">Waiting for your opponent to finish</string>
+    <string name="waiting_for_opponent_to_join">Waiting for your opponent to join</string>
     <string name="cancel">Decline\n</string>
     <string name="accept">Accept</string>
     <string name="user_declined_invite">User has declined your invitation</string>
-    <string name="would_you_like_to_play_with">"Would you like to accept challenge from %1$s to face knwoledge showdown in %2$s "</string>
+    <string name="would_you_like_to_play_with">Would you like to accept challenge from %1$s to face knowledge showdown about %2$s</string>
     <string name="opponent_progress">%1$s is on fire! Answer quickly\n- Don’t get left behind!</string>
     <string name="choose_category">SELECT QUIZ CATEGORY</string>
     <string name="choose_opponent">SELECT COMPETITOR</string>
