@@ -5,8 +5,8 @@
     <dimen name="normal_margin">16dp</dimen>
     <dimen name="small_margin">8dp</dimen>
     <dimen name="big_margin">40dp</dimen>
-    <dimen name="small_user_avatar_dimen">60dp</dimen>
-    <dimen name="progress_height">35dp</dimen>
+    <dimen name="small_user_avatar_dimen">48dp</dimen>
+    <dimen name="progress_height">16dp</dimen>
     <dimen name="progress_height2dp">37dp</dimen>
     <dimen name="background_corner">20dp</dimen>
     <dimen name="podium_size">80dp</dimen>
