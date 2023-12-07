@@ -8,6 +8,7 @@ import com.fandom.fandom.quiz.quiz.presentation.OpponentResponses
 import com.fandom.fandom.quiz.quiz.presentation.QuestionResponse
 import com.fandom.fandom.quiz.remoteDb.UserEntity
 import com.fandom.fandom.quiz.remoteDb.UsersDb
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
@@ -17,7 +18,7 @@ class SummaryViewModel(
     val userRepository: CurrentUserRepository,
     val currentQuizManager: CurrentQuizManager,
 
-) : ViewModel() {
+    ) : ViewModel() {
 
     private val _opponentData: MutableStateFlow<UserEntity?> = MutableStateFlow(null)
     val opponentData: StateFlow<UserEntity?> = _opponentData
@@ -30,6 +31,9 @@ class SummaryViewModel(
 
     private val _opponentPoints: MutableStateFlow<Int> = MutableStateFlow(0)
     val opponentPoints: StateFlow<Int> = _opponentPoints
+
+    private val _startAnim: MutableSharedFlow<Unit> = MutableSharedFlow(replay = 0)
+    val startAnim: SharedFlow<Unit> = _startAnim
 
 
     fun getUsersData() {
@@ -58,9 +62,15 @@ class SummaryViewModel(
                         }
                     }
                 }
+                if(sum>opponentSum){
+                    launch {
+                        delay(1000)
+                        _startAnim.emit(Unit)
+                    }
+                }
                 _currentUserPoints.emit(sum)
                 _opponentPoints.emit(opponentSum)
-                if(currentQuizManager.isCurrentHost.value){
+                if (currentQuizManager.isCurrentHost.value) {
                     usersDb.getUserById(userRepository.getCurrentUser()!!.id)?.let {
                         usersDb.updateUser(it.copy(points = it.points + sum))
                     }

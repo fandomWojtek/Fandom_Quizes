@@ -58,6 +58,10 @@ class SummaryFragment : Fragment(R.layout.fragment_summary) {
         safelyCollectFlow(viewModel.opponentPoints) {
             binding.opponentPoints.text = it.toString()
         }
+
+        safelyCollectFlow(viewModel.startAnim) {
+            binding.lottieAnim.playAnimation()
+        }
     }
 
     private fun startAnimation(view: View, delay: Long) {

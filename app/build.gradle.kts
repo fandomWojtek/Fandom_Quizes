@@ -97,6 +97,9 @@ dependencies {
     implementation(Deps.navigationFragment)
     implementation(Deps.navigationUI)
 
+    //lottie
+    implementation(Deps.lottieAnimations)
+
     testImplementation("junit:junit:4.13.2")
 
     //glide
