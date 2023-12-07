@@ -40,7 +40,7 @@ class QuizViewModel(private val currentQuizManager: CurrentQuizManager) : ViewMo
         }
     }
 
-    fun endTimer() {
+    private fun endTimer() {
         viewModelScope.launch { _endTime.emit(System.currentTimeMillis()) }
     }
 
@@ -54,11 +54,18 @@ class QuizViewModel(private val currentQuizManager: CurrentQuizManager) : ViewMo
             delay(800)
             currentQuizManager.sendQuestionResponse(OpponentResponses(newResponses))
             if (_goToNextQuestion.value + 1 == quiz.value?.questions?.size) {
-                _finishFlowOfQuiz.emit(Unit)
+                currentQuizManager.currentOpponentResponses.collectLatest {
+                    currentQuizManager.gatherResponses()
+                    _finishFlowOfQuiz.emit(Unit)
+                }
             } else {
                 _goToNextQuestion.emit(_goToNextQuestion.value + 1)
                 _responses.emit(newResponses)
             }
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
     }
 }

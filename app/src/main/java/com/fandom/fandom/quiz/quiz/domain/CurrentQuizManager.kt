@@ -6,10 +6,12 @@ import com.fandom.fandom.quiz.communication.CommunicationManager
 import com.fandom.fandom.quiz.notification.send.*
 import com.fandom.fandom.quiz.quiz.api.Quiz
 import com.fandom.fandom.quiz.quiz.presentation.OpponentResponses
+import com.fandom.fandom.quiz.quiz.presentation.QuestionResponse
 import com.fandom.fandom.quiz.remoteDb.UserEntity
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.*
 
+data class QuizFinish(val myResponses: List<QuestionResponse>, val opponentResponses: List<QuestionResponse>, val opponent: String)
 class CurrentQuizManager(
     private val loadQuizUseCase: LoadQuizUseCase,
     private val sendPush: SendPush,
@@ -43,7 +45,7 @@ class CurrentQuizManager(
 
     suspend fun acceptInvitationAndSendInfoThatYouAreReady(game: Game) = coroutineScope {
         val categoryId = categoryList.find { it.name == game.category }?.id ?: ""
-        val quiz = loadQuizUseCase.loadQuizWithQuestionIds(categoryId,game.quiz.quizId,game.quiz.questions)
+        val quiz = loadQuizUseCase.loadQuizWithQuestionIds(categoryId, game.quiz.quizId, game.quiz.questions)
         _currentQuizState.emit(quiz)
         _currentOpponent.emit(game.fromUser)
         sendPush.setGameAccepted(game.fromUser, game.quiz.quizId, true)
@@ -62,6 +64,9 @@ class CurrentQuizManager(
     val currentUserResponses: SharedFlow<OpponentResponses> = _currentUserResponses
 
 
+    private val _quizFinished: MutableStateFlow<QuizFinish?> = MutableStateFlow(null)
+    val quizFinished: StateFlow<QuizFinish?> = _quizFinished
+
     suspend fun persistCurrentOpponentResponses(responses: OpponentResponses) {
         _currentOpponentResponses.emit(responses)
     }
@@ -73,5 +78,17 @@ class CurrentQuizManager(
             _currentOpponent.value,
             SendQuestionResponse(userRepository.getCurrentUser()?.id ?: "", _currentOpponent.value, questions.list.map { if (it.correct) 1 else 0 }, questions.list.map { it.time })
         )
+    }
+
+    suspend fun gatherResponses() {
+        _quizFinished.emit(QuizFinish(_currentUserResponses.replayCache.first().list, _currentOpponentResponses.replayCache.first().list, _currentOpponent.value))
+    }
+
+    suspend fun clearCurrentQuiz() {
+        _currentQuizState.value = null
+        _isCurrentHost.value = false
+        _currentOpponent.value = ""
+        _currentOpponentResponses.emit(OpponentResponses(emptyList()))
+        _quizFinished.emit(null)
     }
 }

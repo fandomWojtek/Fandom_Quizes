@@ -49,5 +49,5 @@ class LeaderBoardFragment : Fragment(R.layout.fragment_leaderboard) {
 }
 
 val leaderBoardModule = module {
-    viewModel { LeaderBoardViewModel(get()) }
+    viewModel { LeaderBoardViewModel(get(),get()) }
 }
