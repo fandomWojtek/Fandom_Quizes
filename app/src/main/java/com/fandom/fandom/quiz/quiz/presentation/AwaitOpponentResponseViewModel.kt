@@ -31,7 +31,7 @@ class AwaitOpponentResponseViewModel(
                     QuestionResponse(it, responses.time[it], responses.answers[it] == 1)
                 })
                 _opponentResponseState.emit(quizResponses)
-                if (isHost && responses.answers.size == currentQuizManager.currentQuizState.value?.questions?.size) {
+                if (responses.answers.size == currentQuizManager.currentQuizState.value?.questions?.size) {
                     currentQuizManager.persistCurrentOpponentResponses(quizResponses)
                 }
             }.collect()

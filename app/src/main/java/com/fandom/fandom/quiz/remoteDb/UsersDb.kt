@@ -42,4 +42,8 @@ class UsersDb(private val firestore: FirebaseFirestore) {
             null
         }
     }
+
+    suspend fun updateUser(entity: UserEntity) {
+        firestore.collection(USERS_COLLECTION).document(entity.id).update(POINTS, entity.points).await()
+    }
 }

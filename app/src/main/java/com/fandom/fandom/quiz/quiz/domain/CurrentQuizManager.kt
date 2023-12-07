@@ -57,11 +57,11 @@ class CurrentQuizManager(
         sendPush.setGameAccepted(game.fromUser, game.quiz.quizId, false)
     }
 
-    private val _currentOpponentResponses: MutableSharedFlow<OpponentResponses> = MutableSharedFlow(replay = 0)
-    val currentOpponentResponses: SharedFlow<OpponentResponses> = _currentOpponentResponses
+    private val _currentOpponentResponses: MutableSharedFlow<OpponentResponses?> = MutableSharedFlow(replay = 1)
+    val currentOpponentResponses: SharedFlow<OpponentResponses?> = _currentOpponentResponses
 
-    private val _currentUserResponses: MutableSharedFlow<OpponentResponses> = MutableSharedFlow(replay = 0)
-    val currentUserResponses: SharedFlow<OpponentResponses> = _currentUserResponses
+    private val _currentUserResponses: MutableSharedFlow<OpponentResponses?> = MutableSharedFlow(replay = 1)
+    val currentUserResponses: SharedFlow<OpponentResponses?> = _currentUserResponses
 
 
     private val _quizFinished: MutableStateFlow<QuizFinish?> = MutableStateFlow(null)
@@ -80,15 +80,12 @@ class CurrentQuizManager(
         )
     }
 
-    suspend fun gatherResponses() {
-        _quizFinished.emit(QuizFinish(_currentUserResponses.replayCache.first().list, _currentOpponentResponses.replayCache.first().list, _currentOpponent.value))
-    }
-
     suspend fun clearCurrentQuiz() {
         _currentQuizState.value = null
         _isCurrentHost.value = false
         _currentOpponent.value = ""
-        _currentOpponentResponses.emit(OpponentResponses(emptyList()))
+        _currentOpponentResponses.emit(null)
+        _currentUserResponses.emit(null)
         _quizFinished.emit(null)
     }
 }

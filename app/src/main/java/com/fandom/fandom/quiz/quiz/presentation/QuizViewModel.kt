@@ -28,6 +28,8 @@ class QuizViewModel(private val currentQuizManager: CurrentQuizManager) : ViewMo
     val finishFlowOfQuiz: SharedFlow<Unit> = _finishFlowOfQuiz
 
 
+    private val _waitingForYourOpponentToFinish : MutableSharedFlow<Unit> = MutableSharedFlow(replay = 0 )
+    val waitingForYourOpponentToFinish : SharedFlow<Unit> =  _waitingForYourOpponentToFinish
     fun getQuiz() {
         viewModelScope.launch {
             _quiz.emit(currentQuizManager.currentQuizState.value)
@@ -54,8 +56,8 @@ class QuizViewModel(private val currentQuizManager: CurrentQuizManager) : ViewMo
             delay(800)
             currentQuizManager.sendQuestionResponse(OpponentResponses(newResponses))
             if (_goToNextQuestion.value + 1 == quiz.value?.questions?.size) {
-                currentQuizManager.currentOpponentResponses.collectLatest {
-                    currentQuizManager.gatherResponses()
+                _waitingForYourOpponentToFinish.emit(Unit)
+                currentQuizManager.currentOpponentResponses.filterNotNull().collectLatest {
                     _finishFlowOfQuiz.emit(Unit)
                 }
             } else {

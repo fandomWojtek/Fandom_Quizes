@@ -55,7 +55,7 @@
             android:textSize="20sp"
             android:id="@+id/opponentText"
             />
-        <androidx.core.widget.ContentLoadingProgressBar
+        <ProgressBar
             android:layout_marginTop="20dp"
             android:id="@+id/progressBar"
             app:layout_constraintStart_toStartOf="parent"

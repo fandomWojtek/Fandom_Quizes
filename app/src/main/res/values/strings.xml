@@ -3,7 +3,7 @@
     <string name="sign_in">Sign in</string>
     <string name="play">Play</string>
     <string name="no_active_users">No active users to play with</string>
-    <string name="waiting_for_opponent">Waiting for your oponnent</string>
+    <string name="waiting_for_opponent">Waiting for your opponent to finish</string>
     <string name="cancel">Decline\n</string>
     <string name="accept">Accept</string>
     <string name="user_declined_invite">User has declined your invitation</string>

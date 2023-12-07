@@ -8,19 +8,15 @@ import com.fandom.fandom.quiz.quiz.presentation.OpponentResponses
 import com.fandom.fandom.quiz.quiz.presentation.QuestionResponse
 import com.fandom.fandom.quiz.remoteDb.UserEntity
 import com.fandom.fandom.quiz.remoteDb.UsersDb
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class SummaryViewModel(
     private val quizManager: CurrentQuizManager,
     val usersDb: UsersDb,
     val userRepository: CurrentUserRepository,
-    val currentQuizManager: CurrentQuizManager
+    val currentQuizManager: CurrentQuizManager,
+
 ) : ViewModel() {
 
     private val _opponentData: MutableStateFlow<UserEntity?> = MutableStateFlow(null)
@@ -46,7 +42,7 @@ class SummaryViewModel(
 
     fun summarizeTheQuiz() {
         viewModelScope.launch {
-            currentQuizManager.currentUserResponses.combine(currentQuizManager.currentOpponentResponses) { userResponses, opponentResponses ->
+            currentQuizManager.currentUserResponses.filterNotNull().combine(currentQuizManager.currentOpponentResponses.filterNotNull()) { userResponses, opponentResponses ->
                 var sum = 0
                 var opponentSum = 0
                 userResponses.list.indices.forEach { index ->
@@ -64,6 +60,14 @@ class SummaryViewModel(
                 }
                 _currentUserPoints.emit(sum)
                 _opponentPoints.emit(opponentSum)
+                if(currentQuizManager.isCurrentHost.value){
+                    usersDb.getUserById(userRepository.getCurrentUser()!!.id)?.let {
+                        usersDb.updateUser(it.copy(points = it.points + sum))
+                    }
+                    usersDb.getUserById(quizManager.currentOpponent.value)?.let {
+                        usersDb.updateUser(it.copy(points = it.points + opponentSum))
+                    }
+                }
 
             }.collect()
         }
