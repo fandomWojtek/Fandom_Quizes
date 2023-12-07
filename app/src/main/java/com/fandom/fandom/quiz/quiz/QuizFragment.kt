@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.animation.LinearInterpolator
 import android.widget.LinearLayout
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -67,16 +68,15 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
             repeatMode = ObjectAnimator.REVERSE
             repeatCount = ObjectAnimator.INFINITE
             duration = DURATION
+            interpolator = LinearInterpolator()
             start()
         }
         animator2 = ObjectAnimator.ofInt(binding.secondFlameScroll, "scrollX", 0, binding.secondFlameScroll[0].width - binding.secondFlameScroll.width).apply {
             repeatMode = ObjectAnimator.REVERSE
             repeatCount = ObjectAnimator.INFINITE
             duration = DURATION*2
+            interpolator = LinearInterpolator()
             start()
-        }
-        animator1.addUpdateListener {
-            android.util.Log.e("TAG", "adjustAnimators: $it" )
         }
     }
 
