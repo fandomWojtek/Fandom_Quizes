@@ -16,11 +16,10 @@
 
         <TextView
             android:id="@+id/yourOpponentProgress"
-            style="@style/Text.Middle.Bold"
+            style="@style/Text.Middle.BoldItalic"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/big_margin"
-
             android:layout_marginEnd="@dimen/big_margin"
             android:gravity="center"
             android:text="@string/opponent_progress"

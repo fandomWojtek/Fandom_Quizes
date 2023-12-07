@@ -16,6 +16,10 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/brand_lead_colors_purple</item>
     </style>
+    <style name="SecondaryText">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/brand_secondary_colors_crimson</item>
+    </style>
     <style name="Text.Bold">
         <item name="android:textStyle">bold</item>
     </style>
@@ -23,7 +27,16 @@
     <style name="Text.Middle">
         <item name="android:textSize">18sp</item>
     </style>
+    <style name="SecondaryText.Middle">
+        <item name="android:textSize">18sp</item>
+    </style>
     <style name="Text.Middle.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="Text.Middle.BoldItalic">
+        <item name="android:textStyle">bold|italic</item>
+    </style>
+    <style name="SecondaryText.Middle.Bold">
         <item name="android:textStyle">bold</item>
     </style>
     <style name="Text.Bigger">
@@ -31,6 +44,9 @@
     </style>
     <style name="Text.Bold.Bigger">
         <item name="android:textSize">24sp</item>
+    </style>
+    <style name="Text.Bold.Biggest">
+        <item name="android:textSize">32sp</item>
     </style>
 
     <dimen name="category_radius">24dp</dimen>

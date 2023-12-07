@@ -30,6 +30,7 @@ class QuestionFragment : Fragment(R.layout.question_fragment) {
                 buttons.forEach { buton -> buton.isGone = true }
                 question.text = quizQuestion?.text
                 val answers = quizQuestion?.answers ?: emptyList()
+                questionCounter.text = getString(R.string.question_counter, position, it?.questions?.size)
                 answers.indices.forEach { index ->
                     buttons[index].visibility = View.VISIBLE
                     buttons[index].text = answers[index].text
