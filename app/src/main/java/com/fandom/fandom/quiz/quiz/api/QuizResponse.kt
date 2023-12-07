@@ -44,9 +44,7 @@ data class Question(
 @Serializable
 data class Answer(
     @SerialName("isCorrect")
-    val isCorrect: Boolean,
-    @SerialName("reference")
-    val reference: String,
+    val isCorrect: Boolean = false,
     @SerialName("text")
     val text: String
 )

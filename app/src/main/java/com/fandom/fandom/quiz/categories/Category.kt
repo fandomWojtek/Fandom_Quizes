@@ -8,18 +8,14 @@ data class Category(val name: String, val id: String, val image: String):Parcela
 
 
 val categoryList = listOf(
-    Category("Marvel", "2233", "https://static.wikia.nocookie.net/marveldatabase/images/8/89/Wiki-wordmark.png/revision/latest/thumbnail/width/400/height/400?cb=20210614021054"),
+    Category("Marvel", "2233", "https://m.media-amazon.com/images/I/91uDfBjwfFL.jpg"),
     Category(
         "Star Wars",
         "147",
         "https://static.wikia.nocookie.net/starwars/images/6/63/LARGE-Wiki.png/revision/latest/thumbnail/width/400/height/400?cb=20210319171629"
     ),
-    Category(
-        "DC",
-        "227",
-        "https://static.wikia.nocookie.net/marvel_dc/images/0/09/Wikia-Visualization-Main%2Cendcdatabase.png/revision/latest/thumbnail/width/400/height/400?cb=20161102141712"
-    ),
-    Category("The Big Bang Theory", "4828", ""),
+
+    Category("The Big Bang Theory", "4828", "https://images-na.ssl-images-amazon.com/images/S/pv-target-images/27dad4f1f79ea44b96fc726ddef21d04294c1b1654e06d6126c256f4db76054c._RI_TTW_.jpg"),
     Category(
         "Dragon Age",
         "10150",
