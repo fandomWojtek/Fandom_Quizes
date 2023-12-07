@@ -45,6 +45,10 @@
     <style name="Text.Bold.Bigger">
         <item name="android:textSize">24sp</item>
     </style>
+
+    <style name="Text.Bold.Super">
+        <item name="android:textSize">36sp</item>
+    </style>
     <style name="Text.Bold.Biggest">
         <item name="android:textSize">32sp</item>
     </style>

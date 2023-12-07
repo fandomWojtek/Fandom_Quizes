@@ -50,7 +50,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/waiting_for_opponent"
+            android:text="@string/waiting_for_opponent_to_join"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:id="@+id/opponentText"
