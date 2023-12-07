@@ -385,7 +385,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/progressOfTheOpponent"
             app:layout_constraintEnd_toEndOf="@+id/progressOfTheOpponent"
             app:layout_constraintHorizontal_bias="1"
-            app:layout_constraintStart_toStartOf="@+id/progressOfTheOpponent"
+            app:layout_constraintStart_toEndOf="@+id/progressOfTheOpponent"
             app:layout_constraintTop_toTopOf="@+id/progressOfTheOpponent"
             app:shapeAppearanceOverlay="@style/roundedImageViewRoundedWhiteStoke"
             app:strokeColor="@color/white"
