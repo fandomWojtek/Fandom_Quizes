@@ -7,7 +7,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/hostContainer"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,27 +18,30 @@
             android:id="@+id/hostAvatar"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginHorizontal="12dp"
-            android:layout_marginVertical="6dp"
             android:src="@drawable/avatar_placeholder"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_marginBottom="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/hostUserName"
+            />
 
         <TextView
             android:id="@+id/hostUserName"
+            style="@style/Text.Bold.Bigger"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintTop_toBottomOf="@id/hostAvatar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/hostAvatar"
             app:layout_constraintEnd_toEndOf="@id/hostAvatar"
             />
 
         <TextView
             android:id="@+id/hostPoints"
+            style="@style/Text.Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@id/hostUserName"
             app:layout_constraintStart_toStartOf="@id/hostUserName"
             app:layout_constraintEnd_toEndOf="@id/hostUserName"
@@ -48,9 +51,10 @@
 
     <TextView
         android:id="@+id/vs"
+        style="@style/Text.Bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="VS"
+        android:text="@string/versus"
         app:layout_constraintStart_toEndOf="@id/hostContainer"
         app:layout_constraintEnd_toStartOf="@id/opponentContainer"
         app:layout_constraintTop_toTopOf="parent"
@@ -60,7 +64,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/opponentContainer"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/vs"
@@ -71,29 +75,30 @@
             android:id="@+id/opponentAvatar"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginHorizontal="12dp"
-            android:layout_marginVertical="6dp"
             android:src="@drawable/avatar_placeholder"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toTopOf="@id/opponentUserName"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             />
 
         <TextView
             android:id="@+id/opponentUserName"
+            style="@style/Text.Bold.Bigger"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintTop_toBottomOf="@id/opponentAvatar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/opponentAvatar"
             app:layout_constraintEnd_toEndOf="@id/opponentAvatar"
             />
 
         <TextView
             android:id="@+id/opponentPoints"
+            style="@style/Text.Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@id/opponentUserName"
             app:layout_constraintStart_toStartOf="@id/opponentUserName"
             app:layout_constraintEnd_toEndOf="@id/opponentUserName"

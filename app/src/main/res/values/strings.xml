@@ -12,4 +12,5 @@
     <string name="choose_category">SELECT QUIZ CATEGORY</string>
     <string name="choose_opponent">SELECT COMPETITOR</string>
     <string name="start_quiz_battle">START QUIZ BATTLE</string>
+    <string name="versus">VS</string>
 </resources>
