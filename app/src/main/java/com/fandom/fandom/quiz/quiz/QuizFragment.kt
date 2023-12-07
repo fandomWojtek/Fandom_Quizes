@@ -8,6 +8,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -43,12 +44,15 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
             viewPager.currentItem = it
         }
 
-        safelyCollectFlow(quizViewModel.finishFlowOfQuiz){
+        safelyCollectFlow(quizViewModel.finishFlowOfQuiz) {
             findNavController().navigate(R.id.action_uizScreenNav_to_summaryFragmentNav)
         }
 
         safelyCollectFlow(awaitOpponentResponseViewModel.quizMetaData) {
             binding.progressOfTheOpponent.weightSum = it.questionNumber.toFloat()
+        }
+        safelyCollectFlow(quizViewModel.waitingForYourOpponentToFinish) {
+            binding.watingForOpponent.isVisible = true
         }
     }
 
