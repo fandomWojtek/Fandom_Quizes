@@ -59,8 +59,13 @@ class SummaryFragment : Fragment(R.layout.fragment_summary) {
             binding.opponentPoints.text = it.toString()
         }
 
-        safelyCollectFlow(viewModel.startAnim) {
-            binding.lottieAnim.playAnimation()
+        safelyCollectFlow(viewModel.didYouWon) {
+            if(it) {
+                binding.lottieAnim.playAnimation()
+            }
+            binding.hostLabel.setText(if(it) R.string.you_won else R.string.you_lost)
+            binding.opponentLabel.setText(if(it) R.string.you_won else R.string.you_lost)
+
         }
     }
 

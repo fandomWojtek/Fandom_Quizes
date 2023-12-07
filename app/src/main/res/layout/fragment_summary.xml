@@ -15,12 +15,20 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/hostContainer"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toStartOf="@id/vs"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/topGuide">
 
+        <TextView
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/hostAvatar"
+            android:id="@+id/hostLabel"
+            style="@style/Text.Middle.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <ImageView
             android:id="@+id/hostAvatar"
             android:layout_width="60dp"
@@ -60,18 +68,28 @@
         android:layout_height="wrap_content"
         android:text="@string/versus"
         app:layout_constraintBottom_toBottomOf="@+id/hostContainer"
-        app:layout_constraintEnd_toStartOf="@id/opponentContainer"
-        app:layout_constraintStart_toEndOf="@id/hostContainer"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/topGuide" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/opponentContainer"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/vs"
         app:layout_constraintTop_toTopOf="@+id/topGuide">
 
+        <TextView
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/opponentAvatar"
+            android:id="@+id/opponentLabel"
+            style="@style/Text.Middle.Bold"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <ImageView
             android:id="@+id/opponentAvatar"
             android:layout_width="60dp"

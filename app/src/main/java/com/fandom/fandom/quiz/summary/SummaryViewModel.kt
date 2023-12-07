@@ -4,8 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fandom.fandom.quiz.auth.domain.CurrentUserRepository
 import com.fandom.fandom.quiz.quiz.domain.CurrentQuizManager
-import com.fandom.fandom.quiz.quiz.presentation.OpponentResponses
-import com.fandom.fandom.quiz.quiz.presentation.QuestionResponse
 import com.fandom.fandom.quiz.remoteDb.UserEntity
 import com.fandom.fandom.quiz.remoteDb.UsersDb
 import kotlinx.coroutines.delay
@@ -32,8 +30,8 @@ class SummaryViewModel(
     private val _opponentPoints: MutableStateFlow<Int> = MutableStateFlow(0)
     val opponentPoints: StateFlow<Int> = _opponentPoints
 
-    private val _startAnim: MutableSharedFlow<Unit> = MutableSharedFlow(replay = 0)
-    val startAnim: SharedFlow<Unit> = _startAnim
+    private val _didYouWon: MutableSharedFlow<Boolean> = MutableSharedFlow(replay = 0)
+    val didYouWon: SharedFlow<Boolean> = _didYouWon
 
 
     fun getUsersData() {
@@ -62,12 +60,11 @@ class SummaryViewModel(
                         }
                     }
                 }
-                if(sum>opponentSum){
-                    launch {
-                        delay(1000)
-                        _startAnim.emit(Unit)
-                    }
+                launch {
+                    delay(1000)
+                    _didYouWon.emit(sum > opponentSum)
                 }
+
                 _currentUserPoints.emit(sum)
                 _opponentPoints.emit(opponentSum)
                 if (currentQuizManager.isCurrentHost.value) {
